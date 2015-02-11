@@ -76,8 +76,10 @@ enableButtons % buttons are disabled until dials are created
             set(table1,'RowName',satPopUpList);
           end
           enableButtons([listBox,stopButton]);
-          setAzimuthDialAndText(Az);
-          setElevationDialAndText(El);
+%           setAzimuthDialAndText(Az);
+            set(satAzimuth, 'String', sprintf('%5.2f',azimuthDial.Value)); % Set azimuth text display
+%           setElevationDialAndText(El);
+            set(satElevation, 'String', sprintf('%5.2f',abs(currentEl))); % Set elevation text display
           isStartButtonPushed = get(source, 'Value'); % check if stop button is pushed
           lastSat = Sat;
           lastAz = Az;
