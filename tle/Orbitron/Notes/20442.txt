@@ -1,0 +1,12 @@
+NAME: LO-19 LUSAT
+LAUNCHED: 1990/01/22@01:35:27
+SITE: Kourou, French Guiana
+STATUS: Beacon only.
+DNLINK: 437.150 FM SSB, 1200 RC-BPSK CW
+DNLINK: 437.125* FM CW
+UPLINK: 145.840/86/88/90 FM 1200 Man. FSK
+CALLSIGN: LUSAT-11 (Braodcast)
+CALLSIGN: LUSAT-12 (BBS)
+SIG: Med CW
+LASTRX: 2004/08/08@0053
+NOTES: The CW beacon is sending eight telemetry channels and one status channel on 437.126 MHz. No BBS service is available. The digipeater is not active.

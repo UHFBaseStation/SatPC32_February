@@ -1,0 +1,10 @@
+NAME: GO-32 TECHSAT-1B
+LAUNCHED: 1998/07/10
+SITE: Baikonur Cosmodrome, Russia
+STATUS: Semi-operational.
+DNLINK: 435.225* FM (9600-baud FSK)
+DNLINK: 435.325 FM (9600-baud FSK) N/A
+UPLINK: 145.860/880/890/930 FM
+CALL: 4XTECH-11(Broadcast)
+CALL: 4XTECH-12 (BBS)
+NOTES: As of October 22, 2002 the BBS is running and partially operational. There is a 2 PB User limit. System beacon every 30 seconds. Downlink output power has been reduced to 1 watt.

@@ -1,0 +1,11 @@
+NAME: FENGYUN-1D
+LAUNCHED: 2002/05/15 UTC
+SITE: Taiyuan, China via Long March 4B
+STATUS: Unknown
+DNLINK: 180.007 CW
+DNLINK: 480.019 CW
+DNLINK: 1700.400 (CHRPT)
+SIG: 
+CALLSIGN: 
+LASTRX: 
+NOTE: Fengyun-1D (FY-1D) is a polar orbiting weather satellite. The 430-kilogram satellite has a 10-channel scanning radiometer.  Fengyun-1D was co-launched with Haiyang-1 on 5/15/02. Fengyun-1D will be a replacement for Fengyun-1C.

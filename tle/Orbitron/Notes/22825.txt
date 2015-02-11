@@ -1,0 +1,7 @@
+NAME: AO-27/AMRAD
+LAUNCHED: 1993/09/26
+SITE: Kourou, French Guiana
+STATUS: Semi-operational, mode J
+DNLINK: 436.795 FM Voice
+UPLINK: 145.850 FM
+NOTES: AO-27's orbit has moved the satellite into a period of Full Orbit Solar Illumination. Due to this, the TEPR method of timing the Transmitter does not work. Therefore AO-27 cannot turn its transmitter on by itself and can only be turned on by ground station command.

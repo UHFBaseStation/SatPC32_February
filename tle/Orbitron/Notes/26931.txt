@@ -1,0 +1,11 @@
+NAME: PCSAT NO-44
+LAUNCHED: 2001/09/30@02:40:02
+SITE: Kodiak, Alaska, USA
+STATUS: Semi-operational
+DNLINK: 145.827* (1200 baud AX-25 AFSK)
+DNLINK: 144.390 (APRS Region 2)
+UPLINK: 145.827 (1200 baud AX-25 AFSK PCSAT-1)
+UPLINK: 435.250 (9600 baud PCSAT-2 off)
+SIG: OK
+UPDATED: 2004/07/31
+NOTES: PCSat is a 1200-baud APRS digipeater designed for use by stations using hand-held or mobile transceivers. Downlinks feed a central web site at: http://pcsat.aprs.org

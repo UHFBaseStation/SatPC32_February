@@ -1,0 +1,4 @@
+STATUS: Unknown
+DNLINK: 150.000 NFM
+DNLINK: 400.000 NFM
+NOTES: Navigational

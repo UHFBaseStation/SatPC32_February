@@ -1,0 +1,7 @@
+NAME: UO-11 OSCAR-11
+LAUNCHED: 1984/04/01 
+SITE:Vandenberg AFB, CA, USA via Delta 3920
+STATUS: Semi-operational
+DNLINK: 145.826* FM 1200-baud AFSK
+BEACON: 2401.500 (Mode-S)
+NOTES: OSCAR-11 has continued to operate in a default mode, controlled by the watch-dog timer. The satellite transmits continuous ASCII telemetry for about seven days on 145.826 MHz, followed by about 14 days of silence. These times appear to be somewhat variable, and on the last occasion the sequence was ten days off and nine days ON. The mode-S beacon on 2401.5 MHz transmits continuously.  At the present time, ground control are unable to command the satellite, due to low temperatures affecting the command decoder. They will attempt to command the satellite when the command decoder temperature has risen to 15C.

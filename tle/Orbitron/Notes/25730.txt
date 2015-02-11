@@ -1,0 +1,7 @@
+NAME: FENGYUN-1C
+LAUNCHED: 1999/05/10 UTC
+SITE: Taiyuan, China via Long March 4B
+DNLINK: 180.006 CW
+DNLINK: 480.017 CW
+DNLINK: 1700.400 {CHRPT)
+NOTE: Fengyun-1C (FY-1C) is a polar orbiting weather satellite. It has a mass of 958 kilograms. Fengyun-1C was colaunched with Shijian-5 on the first launch of a Long March 4B. President Clinton gave Fengyun-1C a waiver in 1996 for launch on a Chinese rocket.

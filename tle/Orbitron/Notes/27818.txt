@@ -1,0 +1,7 @@
+NAME: COSMOS 2398
+LAUNCHED: 4 June 2003 1923 GMT
+SITE: Plesetsk via a SL-08 launcher.
+STATUS: Just launched
+DNLINK: 150 MHz range
+DNLINK: 400 MHz range
+NOTES: Unknown downlink channels as just launched.

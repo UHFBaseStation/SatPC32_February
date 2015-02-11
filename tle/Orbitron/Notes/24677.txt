@@ -1,0 +1,4 @@
+STATUS: Non-operational
+DNLINK: 149.970 NFM
+DNLINK: 399.920 NFM
+NOTES: Navigational

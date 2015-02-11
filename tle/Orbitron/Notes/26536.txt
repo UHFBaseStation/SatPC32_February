@@ -1,0 +1,7 @@
+NAME: NOAA-16/L
+LAUNCHED: 2000/09/21 UTC
+SITE: Vandenberg AFB, CA, USA via Titan 2.
+STATUS: Semi-operational, APT not active
+DNLINK: 137.620 NFM (APT-OFF)
+DNLINK: 1698.000 (HRPT)
+NOTE: NOAA 16's APT transmission system failed a few months after launch.
