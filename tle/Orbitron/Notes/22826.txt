@@ -1,0 +1,13 @@
+NAME: IO-26/ ITAMSAT
+LAUNCHED: 1993/09/26
+SITE: Kourou, French Guiana
+STATUS: Semi-operational
+DNLINK: 435.812 SSB
+DNLINK: 435.822 SSB
+UPLINK: 145.875 FM (1200-baud)
+UPLINK: 145.900 FM (1200-baud)
+UPLINK: 145.925 FM (1200-baud)
+UPLINK: 145.950 FM (1200-baud)
+CALLSIGN: ITMSAT-11 (Broadcast)
+CALLSIGN: ITMSAT-12 (BBS)
+NOTES: The digipeater function is on and open for APRS users. The current configuration of IO-26 allows only limited telemetry in MBL (safe) mode. To enable full telemetry and digipeating, we must re-load the full IHT high level software suite. This was delayed several times, but we plan to do that in the near future. When the IHT code is running, the bulletin will announce that.

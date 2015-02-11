@@ -1,0 +1,12 @@
+NAME: SAPPHIRE NO-45
+LAUNCHED: 2001/09/30
+SITE: Kodiak, Alaska, USA
+STATUS: Operational
+DNLINK: 437.095 (1200 baud AX-25 AFSK)
+UPLINK: 145.945 (UI Digipeater)
+BEACON: 
+SIG: 
+CALLSIGN: KE6QMD
+CALLSIGN: KE6QMD-1
+LASTRX: 
+NOTES: Student built Sapphire was launched through the U.S. Naval Academy Satellite program. Its primary missions are sensor experiments, a camera, and voice synthesizer.

@@ -1,0 +1,1768 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>simple_gui3</title><meta name="generator" content="MATLAB 8.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-09-11"><meta name="DC.source" content="simple_gui3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, tt, code { font-size:12px; }
+pre { margin:0px 0px 20px; }
+pre.error { color:red; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#3">Setup path</a></li><li><a href="#4">Setting variables (teal = global)</a></li><li><a href="#5">Open Figure</a></li><li><a href="#6">Find objects on figure</a></li><li><a href="#7">Set object properties</a></li><li><a href="#8">After setting buttons</a></li><li><a href="#9">Main Function</a></li><li><a href="#10">Secondary Functions</a></li></ul></div><pre class="codeinput"><span class="keyword">function</span> simple_gui3
+</pre><pre class="codeinput"><span class="comment">% Controls both elevation and azimuth rotors</span>
+</pre><h2>Setup path<a name="3"></a></h2><pre class="codeinput">close <span class="string">all</span> <span class="string">force</span>;
+clear <span class="string">all</span>;
+clc;
+delete(instrfind);
+addpath(genpath(<span class="string">'./functions/dial'</span>));
+addpath(genpath(<span class="string">'./datasets'</span>));
+addpath(genpath(<span class="string">'./OrbitCode'</span>));
+addpath(genpath(<span class="string">'./GPS_CoordinateXforms'</span>));
+addpath(<span class="string">'./tle'</span>);
+<span class="comment">% dbstop in simple_gui3 at 406</span>
+</pre><h2>Setting variables (teal = global)<a name="4"></a></h2><pre class="codeinput">[amateur,Sat,cubesat,satNamesAmateur,tle1Amateur,tle2Amateur,satNamesCubesat,tle1Cubesat,tle2Cubesat,satNamesAll,tle1All,tle2All,tle1Data,tle2Data] = deal({<span class="string">''</span>});
+[El,chan,firstAz,flagSatPC,futureEl,futureAz,futureJDay,recordedAzimuth(1),currentEl,ardAnswer,azAnswer,Az,llh,lastAz,currentAz,isStartButtonPushed,elevationCom,azimuthCom,elevationFlag,azimuthFlag,selection] = deal(0);
+programSelection = {<span class="string">'SatPC32'</span>, <span class="string">'Orbitron'</span>,<span class="string">'Matlab'</span>};
+columnNames = {<span class="string">'Azimuth'</span>,<span class="string">'Elevation'</span>,<span class="string">'Latitude'</span>,<span class="string">'Longitude'</span>};
+count = 2;
+whichconst          = 84;
+typerun             = <span class="string">'c'</span>;
+typeinput           = <span class="string">'e'</span>;
+H                   = 0.500;
+mylat               = 59.3326;
+mylst               = 18.0649;
+Re                  = 6378.137;     <span class="comment">% Equatorial Earh's radius [km]</span>
+Rp                  = 6356.7523;    <span class="comment">% Polar Earh's radius [km]</span>
+f                   = (Re - Rp)/Re; <span class="comment">% Oblateness or flattening</span>
+datatable1          = {<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>;<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>;<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>;<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>,<span class="string">''</span>};
+satPopUpList       = {<span class="string">'ISS (ZARYA)'</span>,<span class="string">'FUNCUBE-1 (AO-73)'</span>,<span class="string">'OSCAR 7 (AO-7)'</span>,<span class="string">'PCSAT (NO-44)'</span>,<span class="string">'UKUBE-1'</span>};
+satTrackProgram     = <span class="string">'Matlab'</span>;
+lastSat             = <span class="string">'initial satellite'</span>;
+</pre><h2>Open Figure<a name="5"></a></h2><pre class="codeinput">open(<span class="string">'sampleFigure.fig'</span>)
+currentFigure = gcf;
+set(currentFigure,<span class="string">'name'</span>,<span class="string">'Base Station Rotor Control'</span>,<span class="string">'NumberTitle'</span>,<span class="string">'off'</span>,<span class="string">'CloseRequestFcn'</span>,@closeRequest);
+
+movegui(currentFigure,<span class="string">'east'</span>);
+</pre><img vspace="5" hspace="5" src="simple_gui3_01.png" alt=""> <h2>Find objects on figure<a name="6"></a></h2><pre class="codeinput"><span class="comment">% Buttons</span>
+connectButton   = findobj(<span class="string">'Tag'</span>, <span class="string">'pushbutton1'</span>);
+startButton     = findobj(<span class="string">'Tag'</span>, <span class="string">'pushbutton2'</span>);
+clearButton     = findobj(<span class="string">'Tag'</span>, <span class="string">'pushbutton3'</span>);
+stopButton      = findobj(<span class="string">'Tag'</span>, <span class="string">'pushbutton4'</span>);
+testButton      = findobj(<span class="string">'Tag'</span>, <span class="string">'pushbutton5'</span>);
+updateButton    = findobj(<span class="string">'Tag'</span>, <span class="string">'pushbutton6'</span>);
+futureButton    = findobj(<span class="string">'Tag'</span>, <span class="string">'pushbutton7'</span>);
+
+<span class="comment">% Pop up button</span>
+satProgram      = findobj(<span class="string">'Tag'</span>, <span class="string">'popupmenu2'</span> );
+satPopUpMenu    = findobj(<span class="string">'Tag'</span>, <span class="string">'popupmenu3'</span> );
+
+<span class="comment">% Edit text</span>
+satAzHeader     = findobj(<span class="string">'Tag'</span>, <span class="string">'edit1'</span>);
+satElHeader     = findobj(<span class="string">'Tag'</span>, <span class="string">'edit2'</span>);
+satAzimuth      = findobj(<span class="string">'Tag'</span>, <span class="string">'edit3'</span>);
+satElevation    = findobj(<span class="string">'Tag'</span>, <span class="string">'edit4'</span>);
+satNameHeader   = findobj(<span class="string">'Tag'</span>, <span class="string">'edit5'</span>);
+satName         = findobj(<span class="string">'Tag'</span>, <span class="string">'edit6'</span>);
+freebox         = findobj(<span class="string">'Tag'</span>, <span class="string">'edit7'</span>);
+
+<span class="comment">% List box</span>
+listBox         = findobj(<span class="string">'Tag'</span>, <span class="string">'listbox1'</span>);
+
+<span class="comment">% Dial Axes</span>
+azimuthAxes     = findobj(<span class="string">'Tag'</span>, <span class="string">'axes1'</span>);
+elevationAxes   = findobj(<span class="string">'Tag'</span>, <span class="string">'axes2'</span>);
+
+<span class="comment">% Tables</span>
+table1          = findobj(<span class="string">'Tag'</span>, <span class="string">'uitable2'</span>);
+tablePos        = get(table1, <span class="string">'Position'</span>);
+greyColor       = get(clearButton, 	<span class="string">'BackgroundColor'</span>);
+
+<span class="comment">% Dial buttons</span>
+azimuthDial     = dial(<span class="string">'refVal'</span>,0,<span class="string">'refOrientation'</span>,90*pi/180, <span class="string">'valRangePerRotation'</span>,360, <span class="string">'Min'</span>,0,<span class="string">'Max'</span>,359.999, <span class="string">'doWrap'</span>,1,<span class="string">'Value'</span>,0,<span class="string">'Position'</span>,get(azimuthAxes, 	<span class="string">'Position'</span>),  <span class="string">'VerticalAlignment'</span>,<span class="string">'bottom'</span>,<span class="string">'Tag'</span>,<span class="string">'wrapDial'</span>,<span class="string">'CallBack'</span>, @azimuthDialCallBack,<span class="string">'titlePos'</span>,<span class="string">'top'</span>,<span class="string">'tickVals'</span>, [0 90 180 270],<span class="string">'tickStrs'</span>, {<span class="string">'N'</span>  <span class="string">'E'</span>  <span class="string">'S'</span>  <span class="string">'W'</span>});
+elevationDial   = dial(<span class="string">'refVal'</span>,0,<span class="string">'refOrientation'</span>,pi,        <span class="string">'valRangePerRotation'</span>,360, <span class="string">'Min'</span>,0,<span class="string">'Max'</span>,180,     <span class="string">'doWrap'</span>,0,<span class="string">'Value'</span>,0,<span class="string">'Position'</span>,get(elevationAxes, <span class="string">'Position'</span>), <span class="string">'VerticalAlignment'</span>,<span class="string">'bottom'</span>,<span class="string">'Tag'</span>,<span class="string">'wrapDial'</span>,<span class="string">'Callback'</span>, @elevationDialCallBack,<span class="string">'titlePos'</span>,<span class="string">'top'</span>,<span class="string">'tickVals'</span>, [0 45 90 135 180],<span class="string">'tickStrs'</span>, {<span class="string">'0'</span> <span class="string">'45'</span> <span class="string">'90'</span> <span class="string">'135'</span> <span class="string">'180'</span>});
+
+<span class="comment">%</span>
+download_and_import_TLEs;
+</pre><img vspace="5" hspace="5" src="simple_gui3_02.png" alt=""> <h2>Set object properties<a name="7"></a></h2><pre class="codeinput">set(connectButton, <span class="string">'String'</span>, <span class="string">'Connect'</span>, <span class="string">'Callback'</span>, @connectCallBack);
+set(startButton, <span class="string">'String'</span>, <span class="string">'Start'</span>, <span class="string">'Style'</span>,<span class="string">'togglebutton'</span>,<span class="string">'Callback'</span>, @startCallBack);
+set(clearButton, <span class="string">'String'</span>, <span class="string">'Clear'</span>, <span class="string">'Callback'</span>, @clearCallBack);
+set(stopButton, <span class="string">'String'</span>, <span class="string">'Stop'</span>,<span class="string">'Callback'</span>, @stopCallBack);
+set(testButton, <span class="string">'String'</span>, <span class="string">'Test'</span>,<span class="string">'Style'</span>,<span class="string">'togglebutton'</span>,<span class="string">'Callback'</span>, @displayCoordinatesOfSelectedSatellites_Callback);
+set(updateButton, <span class="string">'String'</span>, <span class="string">'Update TLE''s'</span>, <span class="string">'Callback'</span>, @download_and_import_TLEs)
+set(satProgram, <span class="string">'String'</span>, programSelection, <span class="string">'Callback'</span>, @satelliteTrackingProgramCallback, <span class="string">'Value'</span>,3);
+
+set(futureButton, <span class="string">'String'</span>, <span class="string">'Future'</span>, <span class="string">'Callback'</span>, @getFutureDataset);
+set(listBox, <span class="string">'String'</span>, satNamesAll, <span class="string">'Max'</span>, length(satNamesAll),<span class="string">'Callback'</span>,@largeSatelliteListBox_Callback,<span class="string">'Value'</span>,[1,8,9,46,109]);
+set(satPopUpMenu, <span class="string">'String'</span>, {satNamesAll{get(listBox,<span class="string">'Value'</span>)}}, <span class="string">'Enable'</span>, <span class="string">'on'</span>);
+
+set(table1,<span class="string">'ColumnName'</span>,columnNames,<span class="string">'Data'</span>,cell(length(satPopUpList),length(columnNames)));
+set(satAzHeader, <span class="string">'String'</span>, <span class="string">'Azimuth'</span>,<span class="string">'Enable'</span>,<span class="string">'inactive'</span>);
+set(satElHeader, <span class="string">'String'</span>, <span class="string">'Elevation'</span>,<span class="string">'Enable'</span>,<span class="string">'inactive'</span>);
+set(satNameHeader, <span class="string">'String'</span>, <span class="string">'Satellite: '</span>,<span class="string">'Enable'</span>,<span class="string">'inactive'</span>, <span class="string">'BackgroundColor'</span>, greyColor);
+set(satName, <span class="string">'String'</span>, <span class="string">''</span>,<span class="string">'Enable'</span>,<span class="string">'inactive'</span>, <span class="string">'BackgroundColor'</span>, greyColor);
+set(satAzimuth, <span class="string">'String'</span>, <span class="string">'0.00'</span>, <span class="string">'KeyPressFcn'</span>, @azimuthTextCallBack);
+set(satElevation, <span class="string">'String'</span>, <span class="string">'0.00'</span>, <span class="string">'KeyPressFcn'</span>, @elevationTextCallBack);
+</pre><img vspace="5" hspace="5" src="simple_gui3_03.png" alt=""> <h2>After setting buttons<a name="8"></a></h2><pre class="codeinput">satTrackProgram = programSelection{get(satProgram, <span class="string">'Value'</span>)};
+largeSatelliteListBox_Callback(listBox);
+delete(azimuthAxes);
+delete(elevationAxes);
+enableButtons; <span class="comment">% buttons are disabled until dials are created</span>
+</pre><img vspace="5" hspace="5" src="simple_gui3_04.png" alt=""> <h2>Main Function<a name="9"></a></h2><pre class="codeinput">  <span class="keyword">function</span> startCallBack(source, eventdata)
+    <span class="comment">% Starts following azimuth and elevation received from SatPC32</span>
+
+    isStartButtonPushed = get(source, <span class="string">'Value'</span>);
+    <span class="comment">% check connection to both devices</span>
+    <span class="keyword">if</span> elevationFlag ~= 1 || azimuthFlag ~= 1
+      message = <span class="string">'Not connected to both devices'</span>;
+      msgbox(message);
+      set(source, <span class="string">'Value'</span>, 0); <span class="comment">% reset toggle</span>
+    <span class="keyword">else</span>
+      <span class="keyword">try</span>
+        getCurrentAzimuth; <span class="comment">% returns currentAz (global)</span>
+        pause(1);
+        [firstAz, lastAz ] = deal(currentAz);
+
+        <span class="keyword">if</span> isStartButtonPushed == 1
+          set(source, <span class="string">'Enable'</span>, <span class="string">'off'</span>,<span class="string">'BackgroundColor'</span>, <span class="string">'g'</span>); <span class="comment">% Disable button from being pressed again</span>
+          disableButtons;
+        <span class="keyword">end</span>
+
+        <span class="keyword">while</span> isStartButtonPushed == 1
+          <span class="keyword">if</span> strcmp(satTrackProgram,<span class="string">'Matlab'</span>)
+            getMultipleSatelliteCoordinates;
+            satNumber = get(satPopUpMenu, <span class="string">'Value'</span>);
+            Sat = satPopUpList{satNumber};
+            Az = datatable1{1,satNumber};
+            El = datatable1{2,satNumber};
+          <span class="keyword">else</span>
+            getSatelliteCoordinates;
+            datatable1 = get(table1, <span class="string">'Data'</span>);
+            datatable1{1,1} = Az;
+            datatable1{1,2} = El;
+            datatable1{1,3} = llh(1);
+            datatable1{1,4} = llh(2);
+            set(table1, <span class="string">'Data'</span>,datatable1,<span class="string">'RowName'</span>,Sat);
+          <span class="keyword">end</span>
+
+          set(satName, <span class="string">'String'</span>, Sat);
+          sameAsLastSatellite = strcmp(Sat,lastSat);
+          <span class="keyword">if</span> sameAsLastSatellite || strcmp(lastSat, <span class="string">'initial satellite'</span>)
+            sendAzimuthTo( Az );
+            <span class="keyword">if</span> abs(recordedAzimuth(count-1)-Az) &gt; 170
+              recordedAzimuth(count) = Az;
+              count = count + 1;
+            <span class="keyword">end</span>
+            fprintf(elevationCom, sprintf(<span class="string">'e%5.0f'</span>,abs(El)*100));
+            enableButtons([stopButton,clearButton,satPopUpMenu]);
+          <span class="keyword">else</span> <span class="comment">% new satellite code</span>
+            disableButtons;
+            <span class="keyword">for</span> j = length(recordedAzimuth):-1:1
+              sendAndWaitForAzimuth(recordedAzimuth(j));
+            <span class="keyword">end</span>
+            sendAndWaitForAzimuth(Az);
+            fprintf(elevationCom, sprintf(<span class="string">'e%5.0f'</span>,abs(El)*100));
+            firstAz = Az; <span class="comment">% first Az of this satellite</span>
+            count = 2;
+            <span class="keyword">if</span> abs(Az) &gt; 170
+              recordedAzimuth(count) = Az;
+              count = count + 1;
+            <span class="keyword">end</span>
+            set(table1,<span class="string">'RowName'</span>,satPopUpList);
+          <span class="keyword">end</span>
+          enableButtons([listBox,stopButton]);
+          setAzimuthDialAndText(Az);
+          setElevationDialAndText(El);
+          isStartButtonPushed = get(source, <span class="string">'Value'</span>); <span class="comment">% check if stop button is pushed</span>
+          lastSat = Sat;
+          lastAz = Az;
+
+          pause(1);
+        <span class="keyword">end</span>
+        set(satName, <span class="string">'String'</span>, <span class="string">''</span>);
+      <span class="keyword">catch</span> ME
+        disp(ME);
+        assignin(<span class="string">'base'</span>, <span class="string">'error_message'</span>, ME);
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+</pre><h2>Secondary Functions<a name="10"></a></h2><pre class="codeinput"><span class="comment">% Simple button callbacks</span>
+  <span class="keyword">function</span> connectCallBack(source, eventdata)
+    disableButtons; <span class="comment">% So user can't press anything till it is ready</span>
+    <span class="comment">% Connect to ports if not already connected</span>
+    <span class="comment">% 1 means connected, 0 means not connected</span>
+    <span class="keyword">if</span> azimuthFlag == 0
+      initializeAzimuthRotor;
+    <span class="keyword">end</span>
+    pause(2)
+    <span class="keyword">if</span> elevationFlag == 0
+      initializeArduino;
+    <span class="keyword">end</span>
+    pause(2)
+    <span class="comment">% Connect to Satellite Tracking Program</span>
+    <span class="keyword">if</span> strcmp(satTrackProgram,<span class="string">'Matlab'</span>)
+      flagSatPC = 1;
+      set(satNameHeader, <span class="string">'BackgroundColor'</span>, <span class="string">'g'</span>);
+    <span class="keyword">else</span>
+      initializeSatTrack( satTrackProgram );
+    <span class="keyword">end</span>
+
+    <span class="comment">% Check connection to elevation</span>
+    <span class="keyword">switch</span> (elevationFlag)
+      <span class="keyword">case</span> 1
+        set(satElHeader, <span class="string">'BackgroundColor'</span>, <span class="string">'g'</span>);
+        <span class="comment">%                 assignin('base', 'arduinoSerialPort', elevationCom);</span>
+        <span class="comment">%                 pause(0.5);</span>
+        getCurrentElevation;
+        pause(1)
+        setElevationDialAndText(currentEl)
+      <span class="keyword">case</span> 0
+        set(satElHeader, <span class="string">'BackgroundColor'</span>, <span class="string">'r'</span>);
+    <span class="keyword">end</span>
+    <span class="comment">% Check connection to azimuth</span>
+    <span class="keyword">switch</span> (azimuthFlag)
+      <span class="keyword">case</span> 1
+        set(satAzHeader, <span class="string">'BackgroundColor'</span>, <span class="string">'g'</span>);
+        <span class="comment">%                 assignin('base', 'azimuthSerialPort', azimuthCom);</span>
+        <span class="comment">%                 pause(1);</span>
+        getCurrentAzimuth; <span class="comment">% returns currentAz</span>
+        pause(1);
+        setAzimuthDialAndText(currentAz)
+      <span class="keyword">case</span> 0
+        set(satAzHeader, <span class="string">'BackgroundColor'</span>, <span class="string">'r'</span>);
+    <span class="keyword">end</span>
+    <span class="keyword">if</span> flagSatPC + azimuthFlag + elevationFlag == 3
+      enableButtons([startButton,stopButton,clearButton,satPopUpMenu]); <span class="comment">% Now ready to receive and send messages</span>
+    <span class="keyword">else</span>
+      enableButtons(connectButton);
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> clearCallBack(source, eventdata)
+    <span class="comment">% Before clearing connection, we need to send azimuth back to zero</span>
+    disableButtons;
+    <span class="keyword">if</span> azimuthFlag == 1
+      <span class="keyword">for</span> j = length(recordedAzimuth):-1:1
+        sendAndWaitForAzimuth(recordedAzimuth(j));
+      <span class="keyword">end</span>
+      set(startButton, <span class="string">'Enable'</span>, <span class="string">'on'</span>, <span class="string">'Value'</span>, 0, <span class="string">'BackgroundColor'</span>, greyColor); <span class="comment">% stops following Sat program</span>
+      azimuthFlag = 0;
+      elevationFlag = 0;
+      set( [ satElHeader, satAzHeader, satNameHeader ], <span class="string">'BackgroundColor'</span>, greyColor );
+      delete(instrfind);
+    <span class="keyword">end</span>
+    [amateur,cubesat,satNamesAmateur,tle1Amateur,tle2Amateur,satNamesCubesat,tle1Cubesat,tle2Cubesat,satNamesAll,tle1All,tle2All,tle1Data,tle2Data] = deal({<span class="string">''</span>});
+    [recordedAzimuth,currentEl,ardAnswer,azAnswer,Az,llh,lastAz,currentAz,isStartButtonPushed,elevationCom,azimuthCom,elevationFlag,azimuthFlag,selection] = deal(0);
+    count = 2;
+    download_and_import_TLEs;
+    enableButtons;
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> stopCallBack(source,eventdata)
+    <span class="comment">% Sends stop commands to azimuth and elevation rotors</span>
+
+    <span class="keyword">if</span> azimuthFlag == 1
+      fprintf(azimuthCom, <span class="string">'H&lt;'</span>);
+      fprintf(azimuthCom, <span class="string">'++spoll'</span>);
+    <span class="keyword">end</span>
+    <span class="keyword">if</span> elevationFlag == 1
+      fprintf(elevationCom, <span class="string">'s'</span>);
+    <span class="keyword">end</span>
+    set(startButton, <span class="string">'Enable'</span>, <span class="string">'on'</span>, <span class="string">'Value'</span>, 0, <span class="string">'BackgroundColor'</span>, greyColor); <span class="comment">% stops following Sat program</span>
+    set(clearButton, <span class="string">'Enable'</span>, <span class="string">'on'</span>);
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> download_and_import_TLEs(source, eventdata)
+
+    filename = [cd <span class="string">'/tle/amateur.txt'</span>];
+    filename2 = [cd <span class="string">'/tle/cubesat.txt'</span>];
+    urlwrite(<span class="string">'http://www.celestrak.com/NORAD/elements/amateur.txt'</span>,filename);
+    urlwrite(<span class="string">'http://www.celestrak.com/NORAD/elements/cubesat.txt'</span>,filename2);
+    formatSpec = <span class="string">'%s%[^\n\r]'</span>;
+    <span class="comment">% Open the text file.</span>
+    fileID = fopen(filename,<span class="string">'r'</span>);
+    fileID2 = fopen(filename2,<span class="string">'r'</span>);
+    dataArray = textscan(fileID, formatSpec, <span class="string">'Delimiter'</span>, <span class="string">''</span>, <span class="string">'WhiteSpace'</span>, <span class="string">''</span>,  <span class="string">'ReturnOnError'</span>, false);
+    dataArray2 = textscan(fileID2, formatSpec, <span class="string">'Delimiter'</span>, <span class="string">''</span>, <span class="string">'WhiteSpace'</span>, <span class="string">''</span>,  <span class="string">'ReturnOnError'</span>, false);
+    <span class="comment">% Close the text file.</span>
+    fclose(fileID);
+    fclose(fileID2);
+    <span class="comment">% Create output variable</span>
+    amateur = [dataArray{1:end-1}];
+    cubesat = [dataArray2{1:end-1}];
+    <span class="comment">% List of Satellites we want to watch</span>
+    n = 1;
+    clearvars <span class="string">satNames</span> <span class="string">tle1</span> <span class="string">tle2</span> <span class="string">satnamesA</span> <span class="string">tle1A</span> <span class="string">tle2A</span>
+    <span class="keyword">for</span> i = 1:3:length(cubesat)
+      satNamesCubesat{n,:} = cubesat{i};
+      tle1Cubesat{n,:}   	 = cubesat{i+1};
+      tle2Cubesat{n,:}   	 = cubesat{i+2};
+      n = n + 1;
+    <span class="keyword">end</span>
+    n = 1;
+    <span class="keyword">for</span> i = 1:3:length(amateur)
+      satNamesAmateur{n,:} = amateur{i};
+      tle1Amateur{n,:}     = amateur{i+1};
+      tle2Amateur{n,:}     = amateur{i+2};
+      n = n + 1;
+    <span class="keyword">end</span>
+    a = [satNamesAmateur; satNamesCubesat];
+    [satNamesAll,ia,ic] = unique(a,<span class="string">'stable'</span>);
+    satNamesAll = strtrim(satNamesAll);
+    b = [tle1Amateur;tle1Cubesat];
+    c = [tle2Amateur;tle2Cubesat];
+    <span class="keyword">for</span> i = 1:length(ia)
+      tle1All{i,:} = b{ia(i)};
+      tle2All{i,:} = c{ia(i)};
+    <span class="keyword">end</span>
+    t = clock;
+    set(freebox, <span class="string">'String'</span>, sprintf([<span class="string">'Updated TLE at %2.0f:%2.0f:%02.0f, '</span> date],t(4),t(5),t(6)));
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> displayCoordinatesOfSelectedSatellites_Callback(source, eventdata)
+
+    disableButtons;
+    enableButtons(testButton);
+    <span class="keyword">while</span> get(source,<span class="string">'Value'</span>)
+      disableButtons(listBox);
+      getMultipleSatelliteCoordinates;
+      pause(.2);
+    <span class="keyword">end</span>
+    enableButtons;
+  <span class="keyword">end</span>
+
+<span class="comment">% Pop up menus and lists</span>
+
+  <span class="keyword">function</span> satelliteTrackingProgramCallback(source, eventdata)
+    satTrackProgram = programSelection{get(source, <span class="string">'Value'</span>)};
+    <span class="keyword">if</span> strcmp(satTrackProgram, <span class="string">'Matlab'</span>)
+      set(satPopUpMenu, <span class="string">'Enable'</span>, <span class="string">'on'</span>);
+    <span class="keyword">else</span>
+      set(satPopUpMenu, <span class="string">'Enable'</span>, <span class="string">'off'</span>);
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> largeSatelliteListBox_Callback(source, eventdata)
+    selection = get(source, <span class="string">'Value'</span>);
+    satPopUpList = {satNamesAll{selection}};
+    tle1Data = {tle1All{selection}};
+    tle2Data = {tle2All{selection}};
+    set(satPopUpMenu,<span class="string">'String'</span>, satPopUpList)
+  <span class="keyword">end</span>
+
+<span class="comment">%* Satellite coordinate calculations</span>
+  <span class="keyword">function</span> getMultipleSatelliteCoordinates(source,eventdata)
+    set(table1,<span class="string">'RowName'</span>,satPopUpList);
+    <span class="keyword">for</span> i = 1:length(satPopUpList)
+        satname  = satPopUpList{i};
+        longstr1 = tle1Data{i};
+        longstr2 = tle2Data{i};
+        [satrec] = twoline2rv(whichconst, longstr1,longstr2,typerun,typeinput);
+        jdNow = jday;
+        tsince = (jdNow-satrec.jdsatepoch)*24*60;
+        [satrec, xsat_ecf, vsat_ecf, gst]=spg4_ecf(satrec,tsince);
+        R_sc    = xsat_ecf';
+        H       = 0.500;
+        Re      = 6378.137;     <span class="comment">% Equatorial Earh's radius [km]</span>
+        Rp      = 6356.7523;    <span class="comment">% Polar Earh's radius [km]</span>
+        f       = (Re - Rp)/Re; <span class="comment">% Oblateness or flattening</span>
+        C1   = (Re/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*cosd(mylat);
+        C2   = (Re*(1 - f)^2/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*sind(mylat);
+        <span class="comment">% Position vector of the observer,GEF</span>
+
+        R_ob = [C1*cosd(mylst), C1*sind(mylst),C2];
+        <span class="comment">% Position vector of the spacecraft relative to the observer</span>
+        R_rel = R_sc - R_ob';
+        llhh = ecf2llhT(R_sc'*1e3);
+        llh(1) = radtodeg(llhh(1));
+        llh(2) = radtodeg(llhh(2));
+        <span class="comment">% GE_TH is direction cosine matrix to transform position vector components</span>
+        <span class="comment">% from geocentric equatorial frame into the topocentric horizon fream</span>
+        GE_TH = [-sind(mylst)          cosd(mylst)              0;
+          -sind(mylat)*cosd(mylst) -sind(mylat)*sind(mylst)  cosd(mylat);
+          cosd(mylat)*cosd(mylst)  cosd(mylat)*sind(mylst)   sind(mylat)
+          ];
+        R_rel_TH = GE_TH*R_rel;
+        rv = R_rel_TH/norm(R_rel_TH);
+        Elev = asin(rv(3))*180/pi;      <span class="comment">% Elevation angle</span>
+        Azf  =atan2(rv(1),rv(2))*180/pi; <span class="comment">% Azimuth angle</span>
+        <span class="keyword">if</span> Azf &lt; 0
+          Azf = Azf + 360;
+        <span class="keyword">end</span>
+        datatable1 = get(table1, <span class="string">'Data'</span>);
+        datatable1{i,1} = Azf;
+        datatable1{i,2} = Elev;
+        datatable1{i,3} = llh(1);
+        datatable1{i,4} = llh(2);
+        set(table1, <span class="string">'Data'</span>,datatable1);
+      <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> getSatelliteCoordinates(~, eventdata)
+    <span class="comment">% SatPC delivers a string with the following strucutre:</span>
+    <span class="comment">%SNJUGNU AZ16.3 EL-48.4 UP0 UM DN0 DM MA132.0</span>
+
+    key1 = <span class="string">'AZ'</span>;
+    key2 = <span class="string">'EL'</span>;
+    key3 = <span class="string">'DN'</span>; <span class="comment">%For satellite name</span>
+
+    <span class="keyword">switch</span> satTrackProgram
+      <span class="keyword">case</span> <span class="string">'SatPC32'</span>
+        linkItem = <span class="string">'SatPcDdeItem'</span>;
+        data = ddereq(chan, linkItem, [1,1]);
+        Index1 = strfind(data, key1);
+        Index2 = strfind(data, key2);
+        Index3 = strfind(data, key3);
+        Az = sscanf(data(Index1(1) + length(key1):end), <span class="string">'%g'</span>, 1); <span class="comment">% For Satpc</span>
+        El = sscanf(data(Index2(1) + length(key2):end), <span class="string">'%g'</span>, 1) ;
+        Sat = data(3:(Index1-1));
+      <span class="keyword">case</span> <span class="string">'Orbitron'</span>
+        linkItem = <span class="string">'TrackingData'</span>;
+        data = ddereq(chan, linkItem, [1,1]);
+        Index1 = strfind(data, key1);
+        Index2 = strfind(data, key2);
+        Index3 = strfind(data, key3);
+        Sat = data(3:(Index1-1));
+        Az = sscanf(data((Index1(1) + length(key1)):(Index2-1)), <span class="string">'%f'</span>, 1);
+        El = sscanf(data((Index2(1) + length(key2)):(Index3-1)), <span class="string">'%f'</span>, 1);
+      <span class="keyword">case</span> <span class="string">'Matlab'</span>
+        getMultipleSatelliteCoordinates;
+    <span class="keyword">end</span>
+
+
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> [Azf, Elev, satname] = calculateSatCoordinates(varargin)
+
+    s = get(satPopUpMenu,<span class="string">'Value'</span>);
+    satname  = satPopUpList{s};
+    longstr1 = tle1Data{s};
+    longstr2 = tle2Data{s};
+    [satrec] = twoline2rv(whichconst, longstr1,longstr2,typerun,typeinput);
+    jdNow = jday;
+    tsince = (jdNow-satrec.jdsatepoch)*24*60;
+    <span class="comment">%     tsince    - time since epoch (minutes)</span>
+    [satrec, xsat_ecf, vsat_ecf, gst] = spg4_ecf(satrec,tsince);
+    R_sc = xsat_ecf';
+    llhh = ecf2llhT(R_sc'*1e3);
+    llh(1) = radtodeg(llhh(1));
+    llh(2) = radtodeg(llhh(2));
+    C1   = (Re/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*cosd(mylat);
+    C2   = (Re*(1 - f)^2/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*sind(mylat);
+    <span class="comment">% Position vector of the observer,GEF</span>
+
+    R_ob = [C1*cosd(mylst), C1*sind(mylst),C2];
+    <span class="comment">% Position vector of the spacecraft relative to the observer</span>
+    R_rel = R_sc - R_ob';
+
+    <span class="comment">% GE_TH is direction cosine matrix to transform position vector components</span>
+    <span class="comment">% from geocentric equatorial frame into the topocentric horizon fream</span>
+
+    GE_TH = [-sind(mylst)          cosd(mylst)              0;
+      -sind(mylat)*cosd(mylst) -sind(mylat)*sind(mylst)  cosd(mylat);
+      cosd(mylat)*cosd(mylst)  cosd(mylat)*sind(mylst)   sind(mylat)
+      ];
+    R_rel_TH = GE_TH*R_rel;
+    rv = R_rel_TH/norm(R_rel_TH);
+    Elev = asin(rv(3))*180/pi;      <span class="comment">% Elevation angle</span>
+    Azf  =atan2(rv(1),rv(2))*180/pi; <span class="comment">% Azimuth angle</span>
+    <span class="keyword">if</span> Azf &lt; 0
+      Azf = Azf + 360;
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> getCoordinatesForFutureTime(minutesVector, s, timeNow)
+
+    <span class="comment">%     s = get(satPopUpMenu,'Value');</span>
+    <span class="keyword">if</span> nargin &lt; 3
+      timeNow = clock;
+    <span class="keyword">end</span>
+    satname  = satPopUpList{s};
+    longstr1 = tle1Data{s};
+    longstr2 = tle2Data{s};
+    [satrec] = twoline2rv(whichconst, longstr1,longstr2,typerun,typeinput);
+    jdNow = jday;
+    tsince = (jdNow-satrec.jdsatepoch)*24*60 + (minutesVector);
+    futureJDay = tsince/(24*60)+(satrec.jdsatepoch);
+    <span class="keyword">for</span> i = 1:length(tsince)
+      [satrec, xsat_ecf, vsat_ecf, gst]=spg4_ecf(satrec,tsince(i));
+      R_sc    = xsat_ecf';
+      C1   = (Re/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*cosd(mylat);
+      C2   = (Re*(1 - f)^2/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*sind(mylat);
+      <span class="comment">% Position vector of the observer,GEF</span>
+      R_ob = [C1*cosd(mylst), C1*sind(mylst),C2];
+      <span class="comment">% Position vector of the spacecraft relative to the observer</span>
+      R_rel = R_sc - R_ob';
+      llhh = ecf2llhT(R_sc'*1e3);
+      llh(1) = radtodeg(llhh(1));
+      llh(2) = radtodeg(llhh(2));
+      <span class="comment">% GE_TH is direction cosine matrix to transform position vector components</span>
+      <span class="comment">% from geocentric equatorial frame into the topocentric horizon fream</span>
+
+      GE_TH = [-sind(mylst)          cosd(mylst)              0;
+        -sind(mylat)*cosd(mylst) -sind(mylat)*sind(mylst)  cosd(mylat);
+        cosd(mylat)*cosd(mylst)  cosd(mylat)*sind(mylst)   sind(mylat)
+        ];
+      R_rel_TH = GE_TH*R_rel;
+      rv = R_rel_TH/norm(R_rel_TH);
+      futureEl(i) = asin(rv(3))*180/pi;      <span class="comment">% Elevation angle</span>
+      futureAz(i)  =atan2(rv(1),rv(2))*180/pi; <span class="comment">% Azimuth angle</span>
+      <span class="keyword">if</span> futureAz(i) &lt; 0
+        futureAz(i) = futureAz(i) + 360;
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> getFutureDataset(source, eventdata)
+    disp(<span class="string">'future dataset'</span>);
+    disableButtons;
+    timeF = 0:5:60*24; <span class="comment">% minutes</span>
+
+    <span class="keyword">for</span> i = 1:length(satPopUpList)
+      getCoordinatesForFutureTime(timeF,i);
+      <span class="keyword">for</span> j = 1:length(futureJDay)
+        [yearg mong dayg hourg ming secg] = invjday(futureJDay(j));
+        timeTable2(j,:) = [hourg ming secg futureJDay(j)];
+      <span class="keyword">end</span>
+      timetable1 = [futureAz' futureEl' llh(1) llh(2)];
+      timeTable = [timetable1 timeTable2];
+      header = {<span class="string">'Azimuth'</span>, <span class="string">'Elevation'</span>, <span class="string">'Latitude'</span>, <span class="string">'Longitude'</span>, <span class="string">'Hour'</span>, <span class="string">'Min'</span>, <span class="string">'Sec'</span>, <span class="string">'Jday'</span>};
+      filename = [<span class="string">'./datasets/'</span> satPopUpList{i}, <span class="string">'.csv'</span>];
+      dt = dataset({timeTable,header{:}});
+      filename = strrep(filename,<span class="string">' '</span>,<span class="string">'_'</span>);
+      filename = strrep(filename,<span class="string">'-'</span>,<span class="string">''</span>);
+      filename = strrep(filename,<span class="string">'('</span>,<span class="string">''</span>);
+      filename = strrep(filename,<span class="string">')'</span>,<span class="string">''</span>);
+      export(dt,<span class="string">'File'</span>,filename,<span class="string">'Delimiter'</span>,<span class="string">','</span>)
+      lstring=get(freebox, <span class="string">'String'</span>);
+      set(freebox, <span class="string">'String'</span>,{satPopUpList{1:i}});
+    <span class="keyword">end</span>
+    enableButtons;
+
+  <span class="keyword">end</span>
+
+<span class="comment">% Send and receive coordinates for azimuth</span>
+  <span class="keyword">function</span> sendAzimuthTo( thisAz )
+    fprintf(azimuthCom, <span class="string">'L&lt;'</span>);
+    stringAz = convertNumberToFormat(thisAz);
+    fprintf(azimuthCom, [<span class="string">'Pat'</span> stringAz <span class="string">'&lt;'</span>]); <span class="comment">% fprintf(sport, ['Pat00000&lt;']);</span>
+    <span class="comment">% fprintf(sport, 'H&lt;');</span>
+    <span class="comment">% pause(0.5);</span>
+    fprintf(azimuthCom, <span class="string">'G&lt;'</span>); <span class="comment">% Run</span>
+    fprintf(azimuthCom, <span class="string">'G&lt;'</span>); <span class="comment">% Run ( needed twice when in direct mode )</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> sendAndWaitForAzimuth( thisAz )
+    <span class="comment">% Sends azimuth to 'thisAz' and reads until it is within 1 degree</span>
+    sendAzimuthTo( thisAz );
+    getCurrentAzimuth; <span class="comment">% returns currentAz</span>
+    <span class="keyword">while</span> abs(currentAz - thisAz) &gt; 1 &amp;&amp; abs(currentAz - thisAz) &lt; 359
+      getCurrentAzimuth; <span class="comment">% returns currentAz</span>
+      pause(1);
+      setAzimuthDialAndText(currentAz);
+      disp(<span class="string">'Not there yet'</span>);
+    <span class="keyword">end</span>
+    disp(<span class="string">'There'</span>);
+  <span class="keyword">end</span>
+
+<span class="comment">% Initialize connections</span>
+  <span class="keyword">function</span> initializeAzimuthRotor( source, eventdata )
+    <span class="comment">%   comPort = 'COM4'</span>
+    <span class="comment">%   isAlreadyConnected = 1 if connected already</span>
+    <span class="comment">%   isAlreadyConnected = 0 if not connected already</span>
+    <span class="keyword">if</span> nargin &lt; 1
+      comPort = <span class="string">'COM4'</span>;
+    <span class="keyword">end</span>
+    <span class="keyword">try</span>
+      azimuthFlag = 1;
+
+      azimuthCom = serial(comPort);
+      azimuthCom.Terminator = {<span class="string">'CR/LF'</span>, <span class="string">'CR/LF'</span>};
+      azimuthCom.Timeout = 2;
+
+      azimuthCom.BytesAvailableFcn = {@myFgets};
+
+      fopen(azimuthCom);
+
+
+
+      fprintf(azimuthCom, <span class="string">'++mode 1'</span>);
+      fprintf(azimuthCom, <span class="string">'++addr 15'</span>);
+      fprintf(azimuthCom, <span class="string">'++auto 1'</span>);
+      fprintf(azimuthCom, <span class="string">'++clr'</span>);
+      <span class="comment">%       fprintf(azimuthCom, 'FT1&lt;');</span>
+      <span class="comment">%       pause(4)</span>
+
+
+      fprintf(azimuthCom, <span class="string">'H&lt;'</span>); <span class="comment">% Stop command</span>
+      fprintf(azimuthCom, <span class="string">'L&lt;'</span>); <span class="comment">% Load command</span>
+      fprintf(azimuthCom, <span class="string">'Ae1&lt;'</span>); <span class="comment">% set elevation axis off</span>
+      fprintf(azimuthCom, <span class="string">'A1&lt;'</span>);
+      fprintf(azimuthCom, <span class="string">'Ded&lt;'</span>);  <span class="comment">% Take directions automatically</span>
+      fprintf(azimuthCom, <span class="string">'Ve00999&lt;'</span>); <span class="comment">% Velocity 99 %</span>
+      fprintf(azimuthCom, <span class="string">'MT&lt;'</span>); <span class="comment">% Sends the orbit to track mode</span>
+      fprintf(azimuthCom, <span class="string">'O00000&lt;'</span>); <span class="comment">% Offset 350.00 degrees</span>
+      fprintf(azimuthCom, <span class="string">'Pet00000&lt;'</span>);
+      fprintf(azimuthCom, <span class="string">'H&lt;'</span>);
+      pause(1);
+      fprintf(azimuthCom, <span class="string">'H&lt;'</span>);
+      fprintf(azimuthCom, <span class="string">'L&lt;'</span>); <span class="comment">% Load command</span>
+      fprintf(azimuthCom, <span class="string">'Aa1&lt;'</span>); <span class="comment">% choose azimuth axis</span>
+      fprintf(azimuthCom, <span class="string">'A1&lt;'</span>);
+      fprintf(azimuthCom, <span class="string">'Dad&lt;'</span>);  <span class="comment">% Take directions automatically</span>
+      fprintf(azimuthCom, <span class="string">'Va00999&lt;'</span>); <span class="comment">% Velocity 99 %</span>
+      <span class="comment">%   fprintf(sport, 'Bf34999&lt;'); % Software forw limit</span>
+      <span class="comment">%   fprintf(sport, 'Br00000&lt;'); % Software rev limit</span>
+      fprintf(azimuthCom, <span class="string">'MU&lt;'</span>); <span class="comment">% Sends the orbit to track mode</span>
+      fprintf(azimuthCom, <span class="string">'O35000&lt;'</span>); <span class="comment">% Offset 350.00 degrees</span>
+      fprintf(azimuthCom, <span class="string">'Pat00000&lt;'</span>);
+      fprintf(azimuthCom, <span class="string">'G&lt;'</span>);
+      <span class="comment">%       pause(1);</span>
+      <span class="comment">%       fprintf(azimuthCom, 'Pet18200&lt;');</span>
+      fprintf(azimuthCom, <span class="string">'G&lt;'</span>);
+
+
+      <span class="comment">%       fprintf(azimuthCom, 'H&lt;');</span>
+      <span class="comment">%       fprintf(azimuthCom, 'L&lt;'); % Load command</span>
+      <span class="comment">%       fprintf(azimuthCom, 'MU&lt;'); % Sends the orbit to direct mode</span>
+      <span class="comment">%       fprintf(azimuthCom, 'G&lt;');</span>
+      <span class="comment">%       fprintf(azimuthCom, 'G&lt;');</span>
+      pause(1);
+      fprintf(azimuthCom, <span class="string">'X1&lt;'</span>);
+      pause(1);
+      fprintf(azimuthCom, <span class="string">'++spoll'</span>); <span class="comment">% updates azAnswer</span>
+      pause(1);
+      <span class="keyword">if</span> not(isempty(azAnswer))
+        ca = textscan(azAnswer,<span class="string">'%2c%2c%6c'</span>);
+      <span class="keyword">end</span>
+      <span class="keyword">if</span> (strcmp(ca{2},<span class="string">'01'</span>))
+        disp(<span class="string">'correct axis'</span>);
+      <span class="keyword">else</span>
+        disp(<span class="string">'wrong axis'</span>);
+        fprintf(azimuthCom, <span class="string">'H&lt;'</span>);
+        fprintf(azimuthCom, <span class="string">'++spoll'</span>);
+        disableButtons;
+      <span class="keyword">end</span>
+    <span class="keyword">catch</span> ME
+      azimuthFlag = 0;
+      azimuthCom = 0;
+    <span class="keyword">end</span>
+
+    <span class="keyword">function</span> myFgets(source, eventdata)
+      <span class="comment">% Whenever Bytes are available from azimuthCom, read them</span>
+      <span class="comment">% and update the global variable azAnswer</span>
+      azAnswer = fgets(azimuthCom);
+    <span class="keyword">end</span>
+
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> initializeArduino(source, eventdata)
+    elevationFlag = 1;
+    elevationCom = serial(<span class="string">'COM3'</span>);
+    set(elevationCom,<span class="string">'DataBits'</span>, 8 );
+    set(elevationCom,<span class="string">'StopBits'</span>, 1 );
+    set(elevationCom,<span class="string">'BaudRate'</span>, 9600);
+    set(elevationCom,<span class="string">'Parity'</span>, <span class="string">'none'</span>);
+    elevationCom.Terminator = {<span class="string">'CR/LF'</span>,<span class="string">'CR/LF'</span>};
+    elevationCom.BytesAvailableFcn = {@arduinoFgets};
+    elevationCom.Timeout = 1;
+    <span class="keyword">try</span>
+      fopen(elevationCom);
+    <span class="keyword">catch</span>
+      elevationFlag = 0;
+    <span class="keyword">end</span>
+    <span class="keyword">function</span> arduinoFgets(source, eventdata)
+      ardAnswer = fgets(elevationCom);
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> initializeSatTrack(source, eventdata)
+
+    <span class="keyword">switch</span> satTrackProgram
+      <span class="keyword">case</span> <span class="string">'Orbitron'</span>
+        linktopic = <span class="string">'Tracking'</span>;
+      <span class="keyword">case</span> <span class="string">'NFW32'</span>
+        linktopic = <span class="string">'NFW_DATA'</span>;
+      <span class="keyword">case</span> <span class="string">'SatPC32'</span>
+        linktopic = <span class="string">'SatPcDdeConv'</span>;
+    <span class="keyword">end</span>
+    <span class="keyword">try</span>
+      [chan] = ddeinit(satTrackProgram,linktopic);
+      ddepoke(chan, <span class="string">'NFW_SERVER'</span>,<span class="string">'TUNE ON'</span>);
+      flagSatPC = 1;
+      <span class="keyword">if</span> strcmp(satTrackProgram,<span class="string">'NFW32'</span>)
+        flagSatPC = ddepoke(chan, <span class="string">'NFW_SERVER'</span>,<span class="string">'TUNE ON'</span>);
+      <span class="keyword">end</span>
+      set(satNameHeader, <span class="string">'BackgroundColor'</span>, <span class="string">'g'</span>);
+      set(satName, <span class="string">'String'</span>, <span class="string">''</span>);
+    <span class="keyword">catch</span>
+      flagSatPC = 0;
+      chan = 0;
+      set(satNameHeader, <span class="string">'BackgroundColor'</span>, <span class="string">'r'</span>);
+      set(satName, <span class="string">'String'</span>, <span class="string">'Not Connected to Sat Program'</span>);
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+<span class="comment">% Get actual positions of rotors</span>
+  <span class="keyword">function</span> getCurrentAzimuth(source, eventdata)
+    fprintf(azimuthCom, <span class="string">'X1&lt;'</span>);
+    pause(1);
+    fprintf(azimuthCom, <span class="string">'++spoll'</span>); <span class="comment">% azAnswer gets updated after</span>
+
+    <span class="keyword">if</span> not(isempty(azAnswer))
+      currentAzimuth = textscan(azAnswer,<span class="string">'%c%c%f%c%f'</span>);
+      currentAz = currentAzimuth{5}/1000;
+    <span class="keyword">else</span>
+      currentAz = -100;
+      pause(1);
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> getCurrentElevation(source, eventdata)
+    fprintf(elevationCom, <span class="string">'r'</span>); <span class="comment">% tell arduino to analogread</span>
+    pause(1);
+    currentEl = str2double(ardAnswer)/100;
+  <span class="keyword">end</span>
+
+<span class="comment">% Update Text and dials</span>
+  <span class="keyword">function</span> azimuthDialCallBack(source, eventdata)
+    <span class="keyword">if</span> isStartButtonPushed == 0
+      set(satAzimuth, <span class="string">'String'</span>, sprintf(<span class="string">'%5.2f'</span>,azimuthDial.Value));
+      <span class="keyword">if</span> azimuthFlag == 1
+        sendAzimuthTo( azimuthDial.Value );
+      <span class="keyword">else</span>
+        message = <span class="string">'Not connected to azimuth'</span>;
+        msgbox(message);
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> elevationDialCallBack(source, eventdata)
+    <span class="keyword">if</span> isStartButtonPushed == 1
+      message = <span class="string">'Stop following Sat program before manual operation.'</span>;
+      msgbox(message);
+    <span class="keyword">else</span>
+      set(startButton, <span class="string">'Enable'</span>, <span class="string">'on'</span>, <span class="string">'Value'</span>, 0, <span class="string">'BackgroundColor'</span>, greyColor); <span class="comment">% stops following Sat program</span>
+      set(satElevation, <span class="string">'String'</span>, sprintf(<span class="string">'%5.2f'</span>,elevationDial.Value));
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> elevationTextCallBack(source, eventdata)
+    <span class="keyword">if</span> strcmp(eventdata.Key,<span class="string">'return'</span>)
+      <span class="keyword">if</span> isStartButtonPushed == 1
+        choice = questdlg(<span class="string">'Stop following Satellite program?'</span>, <span class="keyword">...</span>
+          <span class="string">'Stop following Satellite program?'</span>, <span class="keyword">...</span>
+          <span class="string">'Yes'</span>,<span class="string">'No'</span>,<span class="string">'Yes'</span>);
+        <span class="keyword">switch</span> choice
+          <span class="keyword">case</span> <span class="string">'Yes'</span>
+            set(startButton, <span class="string">'Enable'</span>, <span class="string">'on'</span>, <span class="string">'Value'</span>, 0, <span class="string">'BackgroundColor'</span>, greyColor); <span class="comment">% stops following Sat program</span>
+          <span class="keyword">otherwise</span>
+        <span class="keyword">end</span>
+      <span class="keyword">else</span>
+        elevationSubmitted = get(source,<span class="string">'String'</span>);
+        elevationNum = str2double(elevationSubmitted);
+        <span class="keyword">if</span> isnumeric(elevationNum) &amp;&amp; elevationFlag == 1
+          set(elevationDial,<span class="string">'Value'</span>,elevationNum);
+          fprintf(elevationCom, sprintf(<span class="string">'e%5.0f'</span>,elevationNum*100));
+        <span class="keyword">else</span>
+          message = <span class="string">'Not connected to elevation'</span>;
+          msgbox(message);
+        <span class="keyword">end</span>
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> azimuthTextCallBack(source, eventdata)
+    <span class="keyword">if</span> strcmp(eventdata.Key,<span class="string">'return'</span>)
+      set(startButton, <span class="string">'Enable'</span>, <span class="string">'on'</span>, <span class="string">'Value'</span>, 0, <span class="string">'BackgroundColor'</span>, greyColor); <span class="comment">% stops following Sat program</span>
+      azimuthSubmitted = get(source,<span class="string">'String'</span>);
+      azimuthNum = str2double(azimuthSubmitted);
+      <span class="keyword">if</span> isnumeric(azimuthNum) &amp;&amp; azimuthFlag == 1
+        set(azimuthDial,<span class="string">'Value'</span>, azimuthNum);
+        sendAzimuthTo( azimuthNum );
+      <span class="keyword">else</span>
+        message = <span class="string">'Not connected to azimuth'</span>;
+        msgbox(message);
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> setAzimuthDialAndText( setAzimuth )
+    set(azimuthDial,<span class="string">'Value'</span>, setAzimuth);
+    set(satAzimuth, <span class="string">'String'</span>, sprintf(<span class="string">'%5.2f'</span>,azimuthDial.Value));
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> setElevationDialAndText( currentEl )
+    set(elevationDial, <span class="string">'Value'</span>, abs(currentEl));
+    set(satElevation, <span class="string">'String'</span>, sprintf(<span class="string">'%5.2f'</span>,abs(currentEl)));
+  <span class="keyword">end</span>
+
+<span class="comment">% Convert units</span>
+  <span class="keyword">function</span> stringNumber = convertNumberToFormat(number)
+    <span class="comment">% stringNumber = '03245' -&gt; 32.45</span>
+    <span class="keyword">if</span> number &gt;= 100
+      stringNumber = num2str(number,<span class="string">'%-5.2f'</span>);
+    <span class="keyword">elseif</span> number &lt; 10
+      stringNumber = [<span class="string">'00'</span> num2str(number,<span class="string">'%-5.2f'</span>)];
+    <span class="keyword">else</span>
+      stringNumber = [<span class="string">'0'</span> num2str(number,<span class="string">'%-5.2f'</span>)];
+    <span class="keyword">end</span>
+    stringNumber = strrep(stringNumber, <span class="string">'.'</span>, <span class="string">''</span>);
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> jd = jday(yr, mon, day, hr, min, sec)
+    <span class="keyword">if</span> nargin &lt; 1
+      time = clock;
+      yr  = time(1);
+      mon = time(2);
+      day = time(3);
+      hr  = time(4)-2; <span class="comment">% we're 2 hours ahead of utc</span>
+      min = time(5);
+      sec = time(6);
+    <span class="keyword">end</span>
+
+    <span class="comment">% ------------------------  implementation   ------------------</span>
+    jd = 367.0 * yr  <span class="keyword">...</span>
+      - floor( (7 * (yr + floor( (mon + 9) / 12.0) ) ) * 0.25 )   <span class="keyword">...</span>
+      + floor( 275 * mon / 9.0 ) <span class="keyword">...</span>
+      + day + 1721013.5  <span class="keyword">...</span>
+      + ( (sec/60.0 + min ) / 60.0 + hr ) / 24.0;
+  <span class="keyword">end</span>
+
+<span class="comment">% Enable and disable buttons</span>
+  <span class="keyword">function</span> disableButtons(buttonName)
+    <span class="keyword">if</span> nargin &lt; 1
+      buttonName = [listBox,satPopUpMenu,futureButton,satProgram,updateButton,testButton,stopButton,clearButton,startButton,connectButton];
+    <span class="keyword">end</span>
+    set(buttonName, <span class="string">'Enable'</span>, <span class="string">'off'</span>)
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> enableButtons(buttonName)
+    <span class="keyword">if</span> nargin &lt; 1
+      buttonName = [listBox,satPopUpMenu,futureButton,satProgram,updateButton,testButton,stopButton,clearButton,startButton,connectButton];
+    <span class="keyword">end</span>
+    set(buttonName, <span class="string">'Enable'</span>, <span class="string">'on'</span>)
+  <span class="keyword">end</span>
+
+  <span class="keyword">function</span> closeRequest(source,eventdata)
+    stopCallBack;
+    clearCallBack;
+    delete(source);
+  <span class="keyword">end</span>
+</pre><pre class="codeinput"><span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2013a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+function simple_gui3
+% Controls both elevation and azimuth rotors
+
+%% Setup path
+close all force;
+clear all;
+clc;
+delete(instrfind);
+addpath(genpath('./functions/dial'));
+addpath(genpath('./datasets'));
+addpath(genpath('./OrbitCode'));
+addpath(genpath('./GPS_CoordinateXforms'));
+addpath('./tle');
+% dbstop in simple_gui3 at 406
+%% Setting variables (teal = global)
+[amateur,Sat,cubesat,satNamesAmateur,tle1Amateur,tle2Amateur,satNamesCubesat,tle1Cubesat,tle2Cubesat,satNamesAll,tle1All,tle2All,tle1Data,tle2Data] = deal({''});
+[El,chan,firstAz,flagSatPC,futureEl,futureAz,futureJDay,recordedAzimuth(1),currentEl,ardAnswer,azAnswer,Az,llh,lastAz,currentAz,isStartButtonPushed,elevationCom,azimuthCom,elevationFlag,azimuthFlag,selection] = deal(0);
+programSelection = {'SatPC32', 'Orbitron','Matlab'};
+columnNames = {'Azimuth','Elevation','Latitude','Longitude'};
+count = 2;
+whichconst          = 84;
+typerun             = 'c';
+typeinput           = 'e';
+H                   = 0.500;
+mylat               = 59.3326;
+mylst               = 18.0649;
+Re                  = 6378.137;     % Equatorial Earh's radius [km]
+Rp                  = 6356.7523;    % Polar Earh's radius [km]
+f                   = (Re - Rp)/Re; % Oblateness or flattening
+datatable1          = {'','','','';'','','','';'','','','';'','','',''};
+satPopUpList       = {'ISS (ZARYA)','FUNCUBE-1 (AO-73)','OSCAR 7 (AO-7)','PCSAT (NO-44)','UKUBE-1'};
+satTrackProgram     = 'Matlab';
+lastSat             = 'initial satellite';
+%% Open Figure
+open('sampleFigure.fig')
+currentFigure = gcf;
+set(currentFigure,'name','Base Station Rotor Control','NumberTitle','off','CloseRequestFcn',@closeRequest);
+
+movegui(currentFigure,'east');
+%% Find objects on figure
+
+% Buttons
+connectButton   = findobj('Tag', 'pushbutton1');
+startButton     = findobj('Tag', 'pushbutton2');
+clearButton     = findobj('Tag', 'pushbutton3');
+stopButton      = findobj('Tag', 'pushbutton4');
+testButton      = findobj('Tag', 'pushbutton5');
+updateButton    = findobj('Tag', 'pushbutton6');
+futureButton    = findobj('Tag', 'pushbutton7');
+
+% Pop up button
+satProgram      = findobj('Tag', 'popupmenu2' );
+satPopUpMenu    = findobj('Tag', 'popupmenu3' );
+
+% Edit text
+satAzHeader     = findobj('Tag', 'edit1');
+satElHeader     = findobj('Tag', 'edit2');
+satAzimuth      = findobj('Tag', 'edit3');
+satElevation    = findobj('Tag', 'edit4');
+satNameHeader   = findobj('Tag', 'edit5');
+satName         = findobj('Tag', 'edit6');
+freebox         = findobj('Tag', 'edit7');
+
+% List box
+listBox         = findobj('Tag', 'listbox1');
+
+% Dial Axes
+azimuthAxes     = findobj('Tag', 'axes1');
+elevationAxes   = findobj('Tag', 'axes2');
+
+% Tables
+table1          = findobj('Tag', 'uitable2');
+tablePos        = get(table1, 'Position');
+greyColor       = get(clearButton, 	'BackgroundColor');
+
+% Dial buttons
+azimuthDial     = dial('refVal',0,'refOrientation',90*pi/180, 'valRangePerRotation',360, 'Min',0,'Max',359.999, 'doWrap',1,'Value',0,'Position',get(azimuthAxes, 	'Position'),  'VerticalAlignment','bottom','Tag','wrapDial','CallBack', @azimuthDialCallBack,'titlePos','top','tickVals', [0 90 180 270],'tickStrs', {'N'  'E'  'S'  'W'});
+elevationDial   = dial('refVal',0,'refOrientation',pi,        'valRangePerRotation',360, 'Min',0,'Max',180,     'doWrap',0,'Value',0,'Position',get(elevationAxes, 'Position'), 'VerticalAlignment','bottom','Tag','wrapDial','Callback', @elevationDialCallBack,'titlePos','top','tickVals', [0 45 90 135 180],'tickStrs', {'0' '45' '90' '135' '180'});                                                      
+
+%
+download_and_import_TLEs; 
+
+%% Set object properties
+set(connectButton, 'String', 'Connect', 'Callback', @connectCallBack);
+set(startButton, 'String', 'Start', 'Style','togglebutton','Callback', @startCallBack);
+set(clearButton, 'String', 'Clear', 'Callback', @clearCallBack);
+set(stopButton, 'String', 'Stop','Callback', @stopCallBack);
+set(testButton, 'String', 'Test','Style','togglebutton','Callback', @displayCoordinatesOfSelectedSatellites_Callback);
+set(updateButton, 'String', 'Update TLE''s', 'Callback', @download_and_import_TLEs)
+set(satProgram, 'String', programSelection, 'Callback', @satelliteTrackingProgramCallback, 'Value',3);
+
+set(futureButton, 'String', 'Future', 'Callback', @getFutureDataset);
+set(listBox, 'String', satNamesAll, 'Max', length(satNamesAll),'Callback',@largeSatelliteListBox_Callback,'Value',[1,8,9,46,109]);
+set(satPopUpMenu, 'String', {satNamesAll{get(listBox,'Value')}}, 'Enable', 'on');
+
+set(table1,'ColumnName',columnNames,'Data',cell(length(satPopUpList),length(columnNames)));
+set(satAzHeader, 'String', 'Azimuth','Enable','inactive');
+set(satElHeader, 'String', 'Elevation','Enable','inactive');
+set(satNameHeader, 'String', 'Satellite: ','Enable','inactive', 'BackgroundColor', greyColor);
+set(satName, 'String', '','Enable','inactive', 'BackgroundColor', greyColor);
+set(satAzimuth, 'String', '0.00', 'KeyPressFcn', @azimuthTextCallBack);
+set(satElevation, 'String', '0.00', 'KeyPressFcn', @elevationTextCallBack);
+
+%% After setting buttons
+satTrackProgram = programSelection{get(satProgram, 'Value')};
+largeSatelliteListBox_Callback(listBox);
+delete(azimuthAxes);
+delete(elevationAxes);
+enableButtons; % buttons are disabled until dials are created
+%% Main Function
+
+  function startCallBack(source, eventdata)
+    % Starts following azimuth and elevation received from SatPC32
+    
+    isStartButtonPushed = get(source, 'Value');
+    % check connection to both devices
+    if elevationFlag ~= 1 || azimuthFlag ~= 1
+      message = 'Not connected to both devices';
+      msgbox(message);
+      set(source, 'Value', 0); % reset toggle
+    else
+      try
+        getCurrentAzimuth; % returns currentAz (global)
+        pause(1);
+        [firstAz, lastAz ] = deal(currentAz);
+        
+        if isStartButtonPushed == 1
+          set(source, 'Enable', 'off','BackgroundColor', 'g'); % Disable button from being pressed again
+          disableButtons;
+        end
+        
+        while isStartButtonPushed == 1
+          if strcmp(satTrackProgram,'Matlab')
+            getMultipleSatelliteCoordinates;
+            satNumber = get(satPopUpMenu, 'Value');
+            Sat = satPopUpList{satNumber};
+            Az = datatable1{1,satNumber};
+            El = datatable1{2,satNumber};
+          else
+            getSatelliteCoordinates;
+            datatable1 = get(table1, 'Data');
+            datatable1{1,1} = Az;
+            datatable1{1,2} = El;
+            datatable1{1,3} = llh(1);
+            datatable1{1,4} = llh(2);
+            set(table1, 'Data',datatable1,'RowName',Sat);
+          end
+          
+          set(satName, 'String', Sat);
+          sameAsLastSatellite = strcmp(Sat,lastSat);
+          if sameAsLastSatellite || strcmp(lastSat, 'initial satellite')
+            sendAzimuthTo( Az );
+            if abs(recordedAzimuth(count-1)-Az) > 170
+              recordedAzimuth(count) = Az;
+              count = count + 1;
+            end
+            fprintf(elevationCom, sprintf('e%5.0f',abs(El)*100));
+            enableButtons([stopButton,clearButton,satPopUpMenu]);
+          else % new satellite code
+            disableButtons;
+            for j = length(recordedAzimuth):-1:1
+              sendAndWaitForAzimuth(recordedAzimuth(j));
+            end
+            sendAndWaitForAzimuth(Az);
+            fprintf(elevationCom, sprintf('e%5.0f',abs(El)*100));
+            firstAz = Az; % first Az of this satellite
+            count = 2;
+            if abs(Az) > 170
+              recordedAzimuth(count) = Az;
+              count = count + 1;
+            end
+            set(table1,'RowName',satPopUpList);
+          end
+          enableButtons([listBox,stopButton]);
+          setAzimuthDialAndText(Az);
+          setElevationDialAndText(El);
+          isStartButtonPushed = get(source, 'Value'); % check if stop button is pushed
+          lastSat = Sat;
+          lastAz = Az;
+
+          pause(1);
+        end
+        set(satName, 'String', '');
+      catch ME
+        disp(ME);
+        assignin('base', 'error_message', ME);
+      end
+    end
+  end
+%% Secondary Functions
+
+% Simple button callbacks
+  function connectCallBack(source, eventdata)
+    disableButtons; % So user can't press anything till it is ready
+    % Connect to ports if not already connected
+    % 1 means connected, 0 means not connected
+    if azimuthFlag == 0
+      initializeAzimuthRotor;
+    end
+    pause(2)
+    if elevationFlag == 0
+      initializeArduino;
+    end
+    pause(2)
+    % Connect to Satellite Tracking Program
+    if strcmp(satTrackProgram,'Matlab')
+      flagSatPC = 1;
+      set(satNameHeader, 'BackgroundColor', 'g');
+    else
+      initializeSatTrack( satTrackProgram );
+    end
+    
+    % Check connection to elevation
+    switch (elevationFlag)
+      case 1
+        set(satElHeader, 'BackgroundColor', 'g');
+        %                 assignin('base', 'arduinoSerialPort', elevationCom);
+        %                 pause(0.5);
+        getCurrentElevation;
+        pause(1)
+        setElevationDialAndText(currentEl)
+      case 0
+        set(satElHeader, 'BackgroundColor', 'r');
+    end
+    % Check connection to azimuth
+    switch (azimuthFlag)
+      case 1
+        set(satAzHeader, 'BackgroundColor', 'g');
+        %                 assignin('base', 'azimuthSerialPort', azimuthCom);
+        %                 pause(1);
+        getCurrentAzimuth; % returns currentAz
+        pause(1);
+        setAzimuthDialAndText(currentAz)
+      case 0
+        set(satAzHeader, 'BackgroundColor', 'r');
+    end
+    if flagSatPC + azimuthFlag + elevationFlag == 3
+      enableButtons([startButton,stopButton,clearButton,satPopUpMenu]); % Now ready to receive and send messages
+    else
+      enableButtons(connectButton);
+    end
+  end
+
+  function clearCallBack(source, eventdata)
+    % Before clearing connection, we need to send azimuth back to zero
+    disableButtons;
+    if azimuthFlag == 1
+      for j = length(recordedAzimuth):-1:1
+        sendAndWaitForAzimuth(recordedAzimuth(j));
+      end
+      set(startButton, 'Enable', 'on', 'Value', 0, 'BackgroundColor', greyColor); % stops following Sat program
+      azimuthFlag = 0;
+      elevationFlag = 0;
+      set( [ satElHeader, satAzHeader, satNameHeader ], 'BackgroundColor', greyColor );
+      delete(instrfind);
+    end
+    [amateur,cubesat,satNamesAmateur,tle1Amateur,tle2Amateur,satNamesCubesat,tle1Cubesat,tle2Cubesat,satNamesAll,tle1All,tle2All,tle1Data,tle2Data] = deal({''});
+    [recordedAzimuth,currentEl,ardAnswer,azAnswer,Az,llh,lastAz,currentAz,isStartButtonPushed,elevationCom,azimuthCom,elevationFlag,azimuthFlag,selection] = deal(0);
+    count = 2;
+    download_and_import_TLEs; 
+    enableButtons;
+  end
+
+  function stopCallBack(source,eventdata)
+    % Sends stop commands to azimuth and elevation rotors
+    
+    if azimuthFlag == 1 
+      fprintf(azimuthCom, 'H<');
+      fprintf(azimuthCom, '++spoll');
+    end
+    if elevationFlag == 1
+      fprintf(elevationCom, 's');
+    end
+    set(startButton, 'Enable', 'on', 'Value', 0, 'BackgroundColor', greyColor); % stops following Sat program
+    set(clearButton, 'Enable', 'on');
+  end
+
+  function download_and_import_TLEs(source, eventdata)
+    
+    filename = [cd '/tle/amateur.txt'];
+    filename2 = [cd '/tle/cubesat.txt'];
+    urlwrite('http://www.celestrak.com/NORAD/elements/amateur.txt',filename);
+    urlwrite('http://www.celestrak.com/NORAD/elements/cubesat.txt',filename2);
+    formatSpec = '%s%[^\n\r]';
+    % Open the text file.
+    fileID = fopen(filename,'r');
+    fileID2 = fopen(filename2,'r');
+    dataArray = textscan(fileID, formatSpec, 'Delimiter', '', 'WhiteSpace', '',  'ReturnOnError', false);
+    dataArray2 = textscan(fileID2, formatSpec, 'Delimiter', '', 'WhiteSpace', '',  'ReturnOnError', false);
+    % Close the text file.
+    fclose(fileID);
+    fclose(fileID2);
+    % Create output variable
+    amateur = [dataArray{1:end-1}];
+    cubesat = [dataArray2{1:end-1}];
+    % List of Satellites we want to watch
+    n = 1;
+    clearvars satNames tle1 tle2 satnamesA tle1A tle2A
+    for i = 1:3:length(cubesat)
+      satNamesCubesat{n,:} = cubesat{i};
+      tle1Cubesat{n,:}   	 = cubesat{i+1};
+      tle2Cubesat{n,:}   	 = cubesat{i+2};
+      n = n + 1;
+    end
+    n = 1;
+    for i = 1:3:length(amateur)
+      satNamesAmateur{n,:} = amateur{i};
+      tle1Amateur{n,:}     = amateur{i+1};
+      tle2Amateur{n,:}     = amateur{i+2};
+      n = n + 1;
+    end
+    a = [satNamesAmateur; satNamesCubesat];
+    [satNamesAll,ia,ic] = unique(a,'stable');
+    satNamesAll = strtrim(satNamesAll);
+    b = [tle1Amateur;tle1Cubesat];
+    c = [tle2Amateur;tle2Cubesat];
+    for i = 1:length(ia)
+      tle1All{i,:} = b{ia(i)};
+      tle2All{i,:} = c{ia(i)};
+    end
+    t = clock;
+    set(freebox, 'String', sprintf(['Updated TLE at %2.0f:%2.0f:%02.0f, ' date],t(4),t(5),t(6)));
+  end
+
+  function displayCoordinatesOfSelectedSatellites_Callback(source, eventdata)
+    
+    disableButtons;
+    enableButtons(testButton);
+    while get(source,'Value')
+      disableButtons(listBox);
+      getMultipleSatelliteCoordinates;
+      pause(.2);
+    end
+    enableButtons;
+  end
+
+% Pop up menus and lists
+ 
+  function satelliteTrackingProgramCallback(source, eventdata)
+    satTrackProgram = programSelection{get(source, 'Value')};
+    if strcmp(satTrackProgram, 'Matlab')
+      set(satPopUpMenu, 'Enable', 'on');
+    else
+      set(satPopUpMenu, 'Enable', 'off');
+    end
+  end
+
+  function largeSatelliteListBox_Callback(source, eventdata)
+    selection = get(source, 'Value');
+    satPopUpList = {satNamesAll{selection}};
+    tle1Data = {tle1All{selection}};
+    tle2Data = {tle2All{selection}};
+    set(satPopUpMenu,'String', satPopUpList)
+  end
+
+%* Satellite coordinate calculations
+  function getMultipleSatelliteCoordinates(source,eventdata)
+    set(table1,'RowName',satPopUpList);
+    for i = 1:length(satPopUpList)
+        satname  = satPopUpList{i};
+        longstr1 = tle1Data{i};
+        longstr2 = tle2Data{i};
+        [satrec] = twoline2rv(whichconst, longstr1,longstr2,typerun,typeinput);
+        jdNow = jday;
+        tsince = (jdNow-satrec.jdsatepoch)*24*60;
+        [satrec, xsat_ecf, vsat_ecf, gst]=spg4_ecf(satrec,tsince);
+        R_sc    = xsat_ecf';
+        H       = 0.500;
+        Re      = 6378.137;     % Equatorial Earh's radius [km]
+        Rp      = 6356.7523;    % Polar Earh's radius [km]
+        f       = (Re - Rp)/Re; % Oblateness or flattening
+        C1   = (Re/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*cosd(mylat);
+        C2   = (Re*(1 - f)^2/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*sind(mylat);
+        % Position vector of the observer,GEF
+        
+        R_ob = [C1*cosd(mylst), C1*sind(mylst),C2];
+        % Position vector of the spacecraft relative to the observer
+        R_rel = R_sc - R_ob';
+        llhh = ecf2llhT(R_sc'*1e3);
+        llh(1) = radtodeg(llhh(1));
+        llh(2) = radtodeg(llhh(2));
+        % GE_TH is direction cosine matrix to transform position vector components
+        % from geocentric equatorial frame into the topocentric horizon fream
+        GE_TH = [-sind(mylst)          cosd(mylst)              0;
+          -sind(mylat)*cosd(mylst) -sind(mylat)*sind(mylst)  cosd(mylat);
+          cosd(mylat)*cosd(mylst)  cosd(mylat)*sind(mylst)   sind(mylat)
+          ];
+        R_rel_TH = GE_TH*R_rel;
+        rv = R_rel_TH/norm(R_rel_TH);
+        Elev = asin(rv(3))*180/pi;      % Elevation angle
+        Azf  =atan2(rv(1),rv(2))*180/pi; % Azimuth angle
+        if Azf < 0
+          Azf = Azf + 360;
+        end
+        datatable1 = get(table1, 'Data');
+        datatable1{i,1} = Azf;
+        datatable1{i,2} = Elev;
+        datatable1{i,3} = llh(1);
+        datatable1{i,4} = llh(2);
+        set(table1, 'Data',datatable1);
+      end
+  end
+
+  function getSatelliteCoordinates(~, eventdata)
+    % SatPC delivers a string with the following strucutre:
+    %SNJUGNU AZ16.3 EL-48.4 UP0 UM DN0 DM MA132.0
+    
+    key1 = 'AZ';
+    key2 = 'EL';
+    key3 = 'DN'; %For satellite name
+    
+    switch satTrackProgram
+      case 'SatPC32'
+        linkItem = 'SatPcDdeItem';
+        data = ddereq(chan, linkItem, [1,1]);
+        Index1 = strfind(data, key1);
+        Index2 = strfind(data, key2);
+        Index3 = strfind(data, key3);
+        Az = sscanf(data(Index1(1) + length(key1):end), '%g', 1); % For Satpc
+        El = sscanf(data(Index2(1) + length(key2):end), '%g', 1) ;
+        Sat = data(3:(Index1-1));
+      case 'Orbitron'
+        linkItem = 'TrackingData';
+        data = ddereq(chan, linkItem, [1,1]);
+        Index1 = strfind(data, key1);
+        Index2 = strfind(data, key2);
+        Index3 = strfind(data, key3);
+        Sat = data(3:(Index1-1));
+        Az = sscanf(data((Index1(1) + length(key1)):(Index2-1)), '%f', 1);
+        El = sscanf(data((Index2(1) + length(key2)):(Index3-1)), '%f', 1);
+      case 'Matlab'
+        getMultipleSatelliteCoordinates;
+    end
+    
+    
+  end
+
+  function [Azf, Elev, satname] = calculateSatCoordinates(varargin)
+    
+    s = get(satPopUpMenu,'Value');
+    satname  = satPopUpList{s};
+    longstr1 = tle1Data{s};
+    longstr2 = tle2Data{s};
+    [satrec] = twoline2rv(whichconst, longstr1,longstr2,typerun,typeinput);
+    jdNow = jday;
+    tsince = (jdNow-satrec.jdsatepoch)*24*60;
+    %     tsince    - time since epoch (minutes)
+    [satrec, xsat_ecf, vsat_ecf, gst] = spg4_ecf(satrec,tsince);
+    R_sc = xsat_ecf';
+    llhh = ecf2llhT(R_sc'*1e3);
+    llh(1) = radtodeg(llhh(1));
+    llh(2) = radtodeg(llhh(2));
+    C1   = (Re/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*cosd(mylat);
+    C2   = (Re*(1 - f)^2/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*sind(mylat);
+    % Position vector of the observer,GEF
+    
+    R_ob = [C1*cosd(mylst), C1*sind(mylst),C2];
+    % Position vector of the spacecraft relative to the observer
+    R_rel = R_sc - R_ob';
+    
+    % GE_TH is direction cosine matrix to transform position vector components
+    % from geocentric equatorial frame into the topocentric horizon fream
+    
+    GE_TH = [-sind(mylst)          cosd(mylst)              0;
+      -sind(mylat)*cosd(mylst) -sind(mylat)*sind(mylst)  cosd(mylat);
+      cosd(mylat)*cosd(mylst)  cosd(mylat)*sind(mylst)   sind(mylat)
+      ];
+    R_rel_TH = GE_TH*R_rel;
+    rv = R_rel_TH/norm(R_rel_TH);
+    Elev = asin(rv(3))*180/pi;      % Elevation angle
+    Azf  =atan2(rv(1),rv(2))*180/pi; % Azimuth angle
+    if Azf < 0
+      Azf = Azf + 360;
+    end
+  end
+
+  function getCoordinatesForFutureTime(minutesVector, s, timeNow)
+    
+    %     s = get(satPopUpMenu,'Value');
+    if nargin < 3
+      timeNow = clock;
+    end
+    satname  = satPopUpList{s};
+    longstr1 = tle1Data{s};
+    longstr2 = tle2Data{s};
+    [satrec] = twoline2rv(whichconst, longstr1,longstr2,typerun,typeinput);
+    jdNow = jday;
+    tsince = (jdNow-satrec.jdsatepoch)*24*60 + (minutesVector);
+    futureJDay = tsince/(24*60)+(satrec.jdsatepoch);
+    for i = 1:length(tsince)
+      [satrec, xsat_ecf, vsat_ecf, gst]=spg4_ecf(satrec,tsince(i));
+      R_sc    = xsat_ecf';
+      C1   = (Re/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*cosd(mylat);
+      C2   = (Re*(1 - f)^2/(1 - (2*f - f^2)*sind(mylat)^2)^0.5 + H)*sind(mylat);
+      % Position vector of the observer,GEF
+      R_ob = [C1*cosd(mylst), C1*sind(mylst),C2];
+      % Position vector of the spacecraft relative to the observer
+      R_rel = R_sc - R_ob';
+      llhh = ecf2llhT(R_sc'*1e3);
+      llh(1) = radtodeg(llhh(1));
+      llh(2) = radtodeg(llhh(2));
+      % GE_TH is direction cosine matrix to transform position vector components
+      % from geocentric equatorial frame into the topocentric horizon fream
+      
+      GE_TH = [-sind(mylst)          cosd(mylst)              0;
+        -sind(mylat)*cosd(mylst) -sind(mylat)*sind(mylst)  cosd(mylat);
+        cosd(mylat)*cosd(mylst)  cosd(mylat)*sind(mylst)   sind(mylat)
+        ];
+      R_rel_TH = GE_TH*R_rel;
+      rv = R_rel_TH/norm(R_rel_TH);
+      futureEl(i) = asin(rv(3))*180/pi;      % Elevation angle
+      futureAz(i)  =atan2(rv(1),rv(2))*180/pi; % Azimuth angle
+      if futureAz(i) < 0
+        futureAz(i) = futureAz(i) + 360;
+      end
+    end
+  end
+
+  function getFutureDataset(source, eventdata)
+    disp('future dataset');
+    disableButtons;
+    timeF = 0:5:60*24; % minutes
+    
+    for i = 1:length(satPopUpList)
+      getCoordinatesForFutureTime(timeF,i);
+      for j = 1:length(futureJDay)
+        [yearg mong dayg hourg ming secg] = invjday(futureJDay(j));
+        timeTable2(j,:) = [hourg ming secg futureJDay(j)];
+      end
+      timetable1 = [futureAz' futureEl' llh(1) llh(2)];
+      timeTable = [timetable1 timeTable2];
+      header = {'Azimuth', 'Elevation', 'Latitude', 'Longitude', 'Hour', 'Min', 'Sec', 'Jday'};
+      filename = ['./datasets/' satPopUpList{i}, '.csv'];
+      dt = dataset({timeTable,header{:}});
+      filename = strrep(filename,' ','_');
+      filename = strrep(filename,'-','');
+      filename = strrep(filename,'(','');
+      filename = strrep(filename,')','');
+      export(dt,'File',filename,'Delimiter',',')
+      lstring=get(freebox, 'String');
+      set(freebox, 'String',{satPopUpList{1:i}});
+    end
+    enableButtons;
+    
+  end
+
+% Send and receive coordinates for azimuth
+  function sendAzimuthTo( thisAz )
+    fprintf(azimuthCom, 'L<');
+    stringAz = convertNumberToFormat(thisAz);
+    fprintf(azimuthCom, ['Pat' stringAz '<']); % fprintf(sport, ['Pat00000<']);
+    % fprintf(sport, 'H<');
+    % pause(0.5);
+    fprintf(azimuthCom, 'G<'); % Run
+    fprintf(azimuthCom, 'G<'); % Run ( needed twice when in direct mode )
+  end
+
+  function sendAndWaitForAzimuth( thisAz )
+    % Sends azimuth to 'thisAz' and reads until it is within 1 degree
+    sendAzimuthTo( thisAz );
+    getCurrentAzimuth; % returns currentAz
+    while abs(currentAz - thisAz) > 1 && abs(currentAz - thisAz) < 359
+      getCurrentAzimuth; % returns currentAz
+      pause(1);
+      setAzimuthDialAndText(currentAz);
+      disp('Not there yet');
+    end
+    disp('There');
+  end
+
+% Initialize connections
+  function initializeAzimuthRotor( source, eventdata )
+    %   comPort = 'COM4'
+    %   isAlreadyConnected = 1 if connected already
+    %   isAlreadyConnected = 0 if not connected already
+    if nargin < 1
+      comPort = 'COM4';
+    end
+    try
+      azimuthFlag = 1;
+      
+      azimuthCom = serial(comPort);
+      azimuthCom.Terminator = {'CR/LF', 'CR/LF'};
+      azimuthCom.Timeout = 2;
+      
+      azimuthCom.BytesAvailableFcn = {@myFgets};
+      
+      fopen(azimuthCom);
+      
+      
+      
+      fprintf(azimuthCom, '++mode 1');
+      fprintf(azimuthCom, '++addr 15');
+      fprintf(azimuthCom, '++auto 1');
+      fprintf(azimuthCom, '++clr');
+      %       fprintf(azimuthCom, 'FT1<');
+      %       pause(4)
+      
+      
+      fprintf(azimuthCom, 'H<'); % Stop command
+      fprintf(azimuthCom, 'L<'); % Load command
+      fprintf(azimuthCom, 'Ae1<'); % set elevation axis off
+      fprintf(azimuthCom, 'A1<');
+      fprintf(azimuthCom, 'Ded<');  % Take directions automatically
+      fprintf(azimuthCom, 'Ve00999<'); % Velocity 99 %
+      fprintf(azimuthCom, 'MT<'); % Sends the orbit to track mode
+      fprintf(azimuthCom, 'O00000<'); % Offset 350.00 degrees
+      fprintf(azimuthCom, 'Pet00000<');
+      fprintf(azimuthCom, 'H<');
+      pause(1);
+      fprintf(azimuthCom, 'H<');
+      fprintf(azimuthCom, 'L<'); % Load command
+      fprintf(azimuthCom, 'Aa1<'); % choose azimuth axis
+      fprintf(azimuthCom, 'A1<');
+      fprintf(azimuthCom, 'Dad<');  % Take directions automatically
+      fprintf(azimuthCom, 'Va00999<'); % Velocity 99 %
+      %   fprintf(sport, 'Bf34999<'); % Software forw limit
+      %   fprintf(sport, 'Br00000<'); % Software rev limit
+      fprintf(azimuthCom, 'MU<'); % Sends the orbit to track mode
+      fprintf(azimuthCom, 'O35000<'); % Offset 350.00 degrees
+      fprintf(azimuthCom, 'Pat00000<');
+      fprintf(azimuthCom, 'G<');
+      %       pause(1);
+      %       fprintf(azimuthCom, 'Pet18200<');
+      fprintf(azimuthCom, 'G<');
+      
+      
+      %       fprintf(azimuthCom, 'H<');
+      %       fprintf(azimuthCom, 'L<'); % Load command
+      %       fprintf(azimuthCom, 'MU<'); % Sends the orbit to direct mode
+      %       fprintf(azimuthCom, 'G<');
+      %       fprintf(azimuthCom, 'G<');
+      pause(1);
+      fprintf(azimuthCom, 'X1<');
+      pause(1);
+      fprintf(azimuthCom, '++spoll'); % updates azAnswer
+      pause(1);
+      if not(isempty(azAnswer))
+        ca = textscan(azAnswer,'%2c%2c%6c');
+      end
+      if (strcmp(ca{2},'01'))
+        disp('correct axis');
+      else
+        disp('wrong axis');
+        fprintf(azimuthCom, 'H<');
+        fprintf(azimuthCom, '++spoll');
+        disableButtons;
+      end
+    catch ME
+      azimuthFlag = 0;
+      azimuthCom = 0;
+    end
+    
+    function myFgets(source, eventdata)
+      % Whenever Bytes are available from azimuthCom, read them
+      % and update the global variable azAnswer
+      azAnswer = fgets(azimuthCom);
+    end
+    
+  end
+
+  function initializeArduino(source, eventdata)
+    elevationFlag = 1;
+    elevationCom = serial('COM3');
+    set(elevationCom,'DataBits', 8 );
+    set(elevationCom,'StopBits', 1 );
+    set(elevationCom,'BaudRate', 9600);
+    set(elevationCom,'Parity', 'none');
+    elevationCom.Terminator = {'CR/LF','CR/LF'};
+    elevationCom.BytesAvailableFcn = {@arduinoFgets};
+    elevationCom.Timeout = 1;
+    try
+      fopen(elevationCom);
+    catch
+      elevationFlag = 0;
+    end
+    function arduinoFgets(source, eventdata)
+      ardAnswer = fgets(elevationCom);
+    end
+  end
+
+  function initializeSatTrack(source, eventdata)
+    
+    switch satTrackProgram
+      case 'Orbitron'
+        linktopic = 'Tracking';
+      case 'NFW32'
+        linktopic = 'NFW_DATA';
+      case 'SatPC32'
+        linktopic = 'SatPcDdeConv';
+    end
+    try
+      [chan] = ddeinit(satTrackProgram,linktopic);
+      ddepoke(chan, 'NFW_SERVER','TUNE ON');
+      flagSatPC = 1;
+      if strcmp(satTrackProgram,'NFW32')
+        flagSatPC = ddepoke(chan, 'NFW_SERVER','TUNE ON');
+      end
+      set(satNameHeader, 'BackgroundColor', 'g');
+      set(satName, 'String', '');
+    catch
+      flagSatPC = 0;
+      chan = 0;
+      set(satNameHeader, 'BackgroundColor', 'r');
+      set(satName, 'String', 'Not Connected to Sat Program');
+    end
+  end
+
+% Get actual positions of rotors
+  function getCurrentAzimuth(source, eventdata)
+    fprintf(azimuthCom, 'X1<');
+    pause(1);
+    fprintf(azimuthCom, '++spoll'); % azAnswer gets updated after
+    
+    if not(isempty(azAnswer))
+      currentAzimuth = textscan(azAnswer,'%c%c%f%c%f');
+      currentAz = currentAzimuth{5}/1000;
+    else
+      currentAz = -100;
+      pause(1);
+    end
+  end
+
+  function getCurrentElevation(source, eventdata)
+    fprintf(elevationCom, 'r'); % tell arduino to analogread
+    pause(1);
+    currentEl = str2double(ardAnswer)/100;
+  end
+
+% Update Text and dials
+  function azimuthDialCallBack(source, eventdata)
+    if isStartButtonPushed == 0
+      set(satAzimuth, 'String', sprintf('%5.2f',azimuthDial.Value));
+      if azimuthFlag == 1
+        sendAzimuthTo( azimuthDial.Value );
+      else
+        message = 'Not connected to azimuth';
+        msgbox(message);
+      end
+    end
+  end
+
+  function elevationDialCallBack(source, eventdata)
+    if isStartButtonPushed == 1
+      message = 'Stop following Sat program before manual operation.';
+      msgbox(message);
+    else
+      set(startButton, 'Enable', 'on', 'Value', 0, 'BackgroundColor', greyColor); % stops following Sat program
+      set(satElevation, 'String', sprintf('%5.2f',elevationDial.Value));
+    end
+  end
+
+  function elevationTextCallBack(source, eventdata)
+    if strcmp(eventdata.Key,'return')
+      if isStartButtonPushed == 1
+        choice = questdlg('Stop following Satellite program?', ...
+          'Stop following Satellite program?', ...
+          'Yes','No','Yes');
+        switch choice
+          case 'Yes'
+            set(startButton, 'Enable', 'on', 'Value', 0, 'BackgroundColor', greyColor); % stops following Sat program
+          otherwise
+        end
+      else
+        elevationSubmitted = get(source,'String');
+        elevationNum = str2double(elevationSubmitted);
+        if isnumeric(elevationNum) && elevationFlag == 1
+          set(elevationDial,'Value',elevationNum);
+          fprintf(elevationCom, sprintf('e%5.0f',elevationNum*100));
+        else
+          message = 'Not connected to elevation';
+          msgbox(message);
+        end
+      end
+    end
+  end
+
+  function azimuthTextCallBack(source, eventdata)
+    if strcmp(eventdata.Key,'return')
+      set(startButton, 'Enable', 'on', 'Value', 0, 'BackgroundColor', greyColor); % stops following Sat program
+      azimuthSubmitted = get(source,'String');
+      azimuthNum = str2double(azimuthSubmitted);
+      if isnumeric(azimuthNum) && azimuthFlag == 1
+        set(azimuthDial,'Value', azimuthNum);
+        sendAzimuthTo( azimuthNum );
+      else
+        message = 'Not connected to azimuth';
+        msgbox(message);
+      end
+    end
+  end
+
+  function setAzimuthDialAndText( setAzimuth )
+    set(azimuthDial,'Value', setAzimuth);
+    set(satAzimuth, 'String', sprintf('%5.2f',azimuthDial.Value));
+  end
+
+  function setElevationDialAndText( currentEl )
+    set(elevationDial, 'Value', abs(currentEl));
+    set(satElevation, 'String', sprintf('%5.2f',abs(currentEl)));
+  end
+
+% Convert units
+  function stringNumber = convertNumberToFormat(number)
+    % stringNumber = '03245' -> 32.45
+    if number >= 100
+      stringNumber = num2str(number,'%-5.2f');
+    elseif number < 10
+      stringNumber = ['00' num2str(number,'%-5.2f')];
+    else
+      stringNumber = ['0' num2str(number,'%-5.2f')];
+    end
+    stringNumber = strrep(stringNumber, '.', '');
+  end
+
+  function jd = jday(yr, mon, day, hr, min, sec)
+    if nargin < 1
+      time = clock;
+      yr  = time(1);
+      mon = time(2);
+      day = time(3);
+      hr  = time(4)-2; % we're 2 hours ahead of utc
+      min = time(5);
+      sec = time(6);
+    end
+    
+    % REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH  implementation   REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+    jd = 367.0 * yr  ...
+      - floor( (7 * (yr + floor( (mon + 9) / 12.0) ) ) * 0.25 )   ...
+      + floor( 275 * mon / 9.0 ) ...
+      + day + 1721013.5  ...
+      + ( (sec/60.0 + min ) / 60.0 + hr ) / 24.0;
+  end
+
+% Enable and disable buttons
+  function disableButtons(buttonName)
+    if nargin < 1
+      buttonName = [listBox,satPopUpMenu,futureButton,satProgram,updateButton,testButton,stopButton,clearButton,startButton,connectButton];
+    end
+    set(buttonName, 'Enable', 'off')
+  end
+
+  function enableButtons(buttonName)
+    if nargin < 1
+      buttonName = [listBox,satPopUpMenu,futureButton,satProgram,updateButton,testButton,stopButton,clearButton,startButton,connectButton];
+    end
+    set(buttonName, 'Enable', 'on')
+  end
+
+  function closeRequest(source,eventdata)
+    stopCallBack;
+    clearCallBack;
+    delete(source);
+  end
+end
+
+##### SOURCE END #####
+--></body></html>

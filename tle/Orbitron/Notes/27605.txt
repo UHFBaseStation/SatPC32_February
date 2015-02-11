@@ -1,0 +1,8 @@
+NAME: RUBIN-2/SAFIR-M
+LAUNCHED: 2002/12/20 UTC
+SITE: Plesetsk by a SL-24.
+STATUS: Non-Operational
+DNLINK: 145.825 9600/Voice/Beacon
+UPLINK: 435.275 1200
+CALLSIGN: DP0AIS
+NOTE: Russia launched five small satellites and a replica of a Moon-orbiting probe.

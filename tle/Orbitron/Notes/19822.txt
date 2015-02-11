@@ -1,0 +1,3 @@
+STATUS: Operational
+DNLINK: 400.450* CW
+NOTES: Carrier only.

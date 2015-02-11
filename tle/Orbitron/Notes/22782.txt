@@ -1,0 +1,3 @@
+NAME: Meteor 2-21
+STATUS: Non-operational
+DNLINK: 137.4000 (APT)

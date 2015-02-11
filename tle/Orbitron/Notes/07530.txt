@@ -1,0 +1,15 @@
+NAME: AO-7
+LAUNCHED: 1974/11/15 by a Delta 2310
+SITE: Vandenberg Air Force Base, CA, USA
+STATUS: Semi-operational in sunlight.
+BEACON: 29.502 CW
+BEACON: 145.972 CW
+BEACON: 435.100 CW
+BEACON: 2304.100 CW
+DNLINK: 29.400 - 29.500 (Mode A)
+UPLINK: 145.850 - 145.950 (Mode A)
+DNLINK: 145.975 - 145.925 (Mode B/C)
+UPLINK: 432.125 - 432.175 (Mode B/C)
+NOTES: AO-7 became non-operational in mid 1981 due to battery failure .  In 2002 one of the shorted batteries became an open and now the spacecraft is able to run off solar panels. For this reason it is not usuable in eclipse and may not be able to supply enough power to the transmitter to keep from frequency modulating the signal. Lately AO-7 has favored Mode B almost exclusively.
+
+On July 11, 2002, AO-7 was successfully commanded for the first time since it was declared dead 21 years ago. Commands were sent and accepted to change the CW beacon code speed. Command investigation continues. So far, 11 different commands have been accepted by AO-7.

@@ -1,0 +1,17 @@
+NAME: AO-51 Phase 3E
+LAUNCHED: 2004/06/29@06:30 UTC
+SITE: Baikonur Cosmodrome
+STATUS: Testing
+MODE: FM Repeater, V/U, ON - 9k6 Digital, V/U, PBP BBS, OPEN for Users 
+DNLINK: 435.300 FM Voice
+DNLINK: 435.150 FM Digital 9600 bps PBP
+DNLINK: 2401.20 FM Digital 38.4 kbps AX25
+UPLINK: 145.920 FM Voice (67hz PL)
+UPLINK: 1268.70 FM Voice (67hz PL)
+UPLINK: 145.860 FM Digital 9600 bps PBP
+SIG: 
+CALLSIGN: PACB-11 BROADCAST
+CALLSIGN: PACB-12 BBS
+LASTRX: 
+UPDATED: 2004/11/07
+NOTES: Amsat-OSCAR E or Echo as it is more commonly known is a FM satellite carrying 4 VHF receivers, 2 UHF transmitters, a multimode receiver and a 2400MHz transmitter. It can handle voice and FSK data up to 76.8Kbps. Echo was launched into a low, sun-synchronous polar orbit approximately 850 km high.

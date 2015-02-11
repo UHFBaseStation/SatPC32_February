@@ -1,0 +1,10 @@
+NAME: Kitsat KO-25 (Oscar 25)
+LAUNCHED: 1993/09/26@01:45 by an Ariane launcher
+SITE: Kourou, French Guiana
+STATUS: Non-operational
+DNLINK: 436.500 FM ?
+UPLINK: 145.980 FM
+CALLSIGN: HL02-11 (Broadcast)
+CALLSIGN: HL02-12 (BBS)
+INFO: Andrew, G8TZJ reports on October 11, 2002 that KO-25 has been off for several days.
+Works in 9600 Baud Packet system.

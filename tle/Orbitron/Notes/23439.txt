@@ -1,0 +1,8 @@
+NAME: RS-15 (RADIO SPORT)
+LAUNCHED: 1994/12/26
+SITE: Baikonur Cosmodrome, Russia
+STATUS: Semi-operational
+BEACON: 29.352 AM (CW-intermittent)
+DNLINK: 29.354 to 29.394 (CW/SSB)
+UPLINK: 145.858 to 145.898 (CW/SSB)
+NOTES: Mode-A, using a 2-meter uplink and a 10-meter downlink.

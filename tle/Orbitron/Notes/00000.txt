@@ -1,0 +1,39 @@
+Official Orbitron notes file format / template
+provided by Sebastian Stoff and David Bate
+
+You can edit this template by editing the text between lines with
+"--" strings. Orbitron will look to this file (Notes\00000.txt) when 
+it needs notes template. It gets all text after the line started 
+with "--" characters and before similar one as ending line.
+In Orbitron, please double click on EMPTY notes to paste this template.
+-----------------------------------------------------------------------
+NAME: 
+LAUNCHED: 
+SITE: 
+STATUS: 
+DNLINK: 
+UPLINK: 
+BEACON: 
+SIG: 
+CALLSIGN: 
+LASTRX: 
+NOTES: 
+UPDATED: 
+----------------------------------------------------------------------
+All times are in UTC. All fields are optional.
+Legend/Fields:
+  LAUNCHED - launch time (UTC) and vehicle name in format:
+             YYYY/MM/DD@hh:mm:ss by ...
+  SITE     - site of launch
+  DNLINK,
+  UPLINK,
+  BEACON   - frequencies in MHz with annotations in bracket; 
+             * denotes comfirmed downlink
+	     examples:
+	       145.000, 1200.000, 145.870/880/890, 435.800-435.900
+	     To be understanded by doppler calculator, frequencies 
+	     must be in notation like "145.000" (three or more digits
+	     after dot), NOT "145". First frequency from range is
+	     taken for doppler calculator.
+  SIG      - information about signal
+  NOTES    - also called INFO; last field with miscellaneous data

@@ -1,0 +1,5 @@
+NAME: DO-17 DOVE
+LAUNCHED: 1990/01/22@01:35:27
+SITE: Kourou, French Guiana
+STATUS: Non-operational
+DNLINK: 145.825 FM

@@ -1,0 +1,8 @@
+NAME: NOAA 17
+LAUNCHED: 2002/06/24@18:23:04 UTC
+SITE: Vandenberg AFB, CA, USA
+STATUS: Operational
+BEACON: 137.770*
+DNLINK: 137.620* (APT)
+DNLINK: 1707.000 (HRPT)
+NOTES: This is the NOAA M satellite. It has eight instruments to serve the science community. It also has two instruments that act as SARSAT radio relays.
