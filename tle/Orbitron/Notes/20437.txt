@@ -1,6 +1,0 @@
-NAME: UO-14 UoSat (Oscar 14)
-LAUNCHED: 1990/01/22@01:35:27 by an Ariane launcher.
-SITE: Kourou, French Guiana
-STATUS: Operational, Mode J
-DNLINK: 435.070* FM (AFSK/Voice)
-UPLINK: 145.975 FM (FSK)

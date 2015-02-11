@@ -1,9 +1,0 @@
-NAME: AO-10 (Oscar 10)
-LAUNCHED: 1983/06/16 by an Ariane launcher
-SITE: Kourou, French Guiana
-STATUS: Semi-operational
-BEACON: 145.810 FM (unmodulated)
-BEACON: 145.987
-UPLINK: 435.030-435.180(SSB/CW)
-DNLINK: 145.825-145.975(SSB/CW)
-INFO: Has been locked into a Mode-B, 70-cm uplink and 2-meter downlink for several years.

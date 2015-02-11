@@ -1,7 +1,0 @@
-NAME: RS-20 MOZHAYETS
-LAUNCHED: 2002/11/28@06:07 UTC
-SITE: Plesetsk via SL-08.
-STATUS: Operational 70 cm beacon.
-DNLINK: 435.319
-DNLINK: 145.828
-NOTES:RS-20 is an experimental payload aboard the Russian satellite known as Mozhayets -- a navigational and scientific satellite. RS-20 transmits CW telemetry. It was built by students at the Mozhaisky military academy in St. Petersburg. Telemetry heard on the 70 cm beacon.

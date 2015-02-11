@@ -1,9 +1,0 @@
-NAME: STS-107
-LAUNCHED: 2003/01/16@1539
-SITE: Kennedy Space Center, FL, USA
-STATUS: Operational
-DNLINK: 296.800 AM
-DNLINK: 279.000 AM
-DNLINK: 259.700 AM
-DNLINK: 121.750 FM
-NOTE: Shuttle Mission 113 started, on time, for its 15 day, 22 hour and 17 minute mission. It will go into a 280 km orbit inclined 39 degrees to the equator. The motto of the seven person crew is to provide 24/7 Space Science Research.

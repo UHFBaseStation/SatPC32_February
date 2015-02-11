@@ -1,8 +1,0 @@
-NAME: NOAA-14
-LAUNCHED: 1994/12/30@10:02 by an Atlas-E rocket 
-SITE: Vandenburg AFB, CA, USA
-STATUS: Operational only HRPT, APT turned off
-BEACON: 137.770*
-DNLINK: 137.620 APT (OFF)
-DNLINK: 1707.000 HRPT
-NOTE: Weather spacecraft. It will replace NOAA 11 whose cloud cover imaging instrument had failed. Besides an imaging radiometer, it carries optical sounders to monitor temp.

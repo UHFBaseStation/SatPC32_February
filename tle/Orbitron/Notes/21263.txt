@@ -1,8 +1,0 @@
-NAME: NOAA-12
-LAUNCHED: 1991/05/14 
-SITE: Vandenburg AFB, CA, USA via Atlas-E.
-STATUS: Operational, secondary to NOAA-15.
-BEACON: 136.770
-DNLINK: 137.500* (APT)
-DNLINK: 1698.00 (HRPT)
-NOTES: A low-earth polar orbiting weather satellite

@@ -1,5 +1,0 @@
-NAME: SHENZHOU 4/SZ-4
-LAUNCHED: 2002/12/29@1640 UTC
-VEHICLE: Long March 2F
-SITE:Shuang Cheng-tsu, China
-NOTE: This is the fourth, and reportedly the last, of the unmanned flights of China's manned program. The manned flight with possibly two 'Taikonauts' is expected to take place in 2003.
