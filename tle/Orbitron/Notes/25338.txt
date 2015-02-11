@@ -1,8 +1,0 @@
-NAME: NOAA 15
-LAUNCHED: 1998/05/31@15:52:04 via Titan 2 rocket
-SITE: Vandenburg AFB, CA, USA
-STATUS: Operational 
-BEACON: 137.350*
-DNLINK: 137.500* APT
-DNLINK: 1702.500 HRPT
-NOTE: Is an American weather satellite. It carries imaging and sounding instruments to obtain data on cloud coverage, atmospheric temperature, humidity

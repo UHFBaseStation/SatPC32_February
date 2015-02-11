@@ -1,6 +1,0 @@
-NAME: ALSAT-1
-LAUNCHED: 2002/11/28@06:07 UTC
-SITE: Plesetsk by a SL-08
-STATUS: Unknown
-DNLINK: ???.????
-NOTES:ALSAT-1 is the first Algerian satellite. Its mission is the first in a Disaster Monitoring Constellation. It will supply imagery for disaster relief agencies.

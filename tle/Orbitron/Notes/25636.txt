@@ -1,9 +1,0 @@
-NAME: SUNSAT/SO-35
-LAUNCHED: 1999/02/23@10:29:55 UTC
-SITE: Vandenberg AFB, CA via Delta 2
-STATUS: Non-operational
-DNLINK: 145.825 Mode B
-DNLINK: 436.250 (1200 AFSK) Mode J
-UPLINK: 436.291 Mode B
-UPLINK: 145.825 (1200 AFSK) Mode J
-NOTE: Last contact with Sunsat Oscar-35 was on Friday 19 January 2001 at 15:22:37 UTC.  Unfortunately, little hope remains after two weeks of recovery attempts.

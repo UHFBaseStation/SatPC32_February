@@ -1,9 +1,0 @@
-NAME: SOYUZ-TMA
-LAUNCHED: 2002/10/30@03:11
-SITE: Baikonur/Tyuratam, CIS
-STATUS: DOCKED-ISS
-DNLINK: 121.750 NFM
-DNLINK: 166.000 AM TLM
-DNLINK: 922.763 TLM
-UPLINK: 139.208 NFM
-INFO: This is an improved Soyuz TM manned spacecraft. NASA calls it only SOYUZ TM (with no number). If this is the advanced version, it has been in the wings for a couple of years.

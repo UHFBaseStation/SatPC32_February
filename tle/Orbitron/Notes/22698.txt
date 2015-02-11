@@ -1,2 +1,0 @@
-STATUS: Unknown
-DNLINK: 150.015 CW

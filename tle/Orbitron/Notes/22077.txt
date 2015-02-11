@@ -1,8 +1,0 @@
-NAME: KO-23 KITSAT
-LAUNCHED: 1992/08/10
-SITE: Kourou, French Guiana
-STATUS: Non-operational
-DNLINK: 435.175 FM 9600bps FSK (carrier)
-UPLINK: 145.900 FM (9600-baud FSK)
-CALLSIGN: HLO1-11 (Braodcast)
-CALLSIGN: HLO1-12 (BBS)

@@ -1,8 +1,0 @@
-NAME: SO-42 SAUDISAT-1B
-LAUNCHED: 2000/09/26
-SITE: Baikonur Cosmodrome, Russia
-STATUS:Unknown/Non-operational
-DNLINK: 437.075 FM
-UPLINK: Unknown
-CALLSIGN: SASAT2-11 (Braodcast)
-CALLSIGN: SASAT2-12 (BBS)

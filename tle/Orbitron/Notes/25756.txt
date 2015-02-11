@@ -1,4 +1,0 @@
-NAME: KITSAT 3
-STATUS: Unknown
-DNLINK: 401.375 MHz (also 2.2 GHz, 8 GHz)
-UPLINK: 148

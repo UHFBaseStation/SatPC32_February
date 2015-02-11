@@ -1,5 +1,0 @@
-NAME: Wo-18 WEBSAT
-LAUNCHED: 1990/01/22@01:35:27
-SITE: Kourou, French Guiana
-STATUS: Non-operational
-DNLINK: 437.105 FM

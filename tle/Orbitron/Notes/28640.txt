@@ -1,8 +1,0 @@
-NAME: SOYUZ TMA-06
-LAUNCHED: 2005/04/15@00:46
-SITE: Baikonur/TyuraTam, CIS
-STATUS: Operational
-DNLINK: 121.75
-DNLINK: 166.00
-DNLINK: 922.75
-NOTES: Expedition 11 escape spacecraft.

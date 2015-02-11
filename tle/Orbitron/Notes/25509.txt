@@ -1,8 +1,0 @@
-NAME: SO-33/SEDSAT-1
-LAUNCHED: 1998/10/24
-SITE: Cape Canaveral, FL, USA
-STATUS: Semi-operational.
-DNLINK: 437.910 FM (9600-baud FSK)
-UPDATED: 2004/07/31
-NOTES: The satellite is not currently available for uplink transmissions and the image and transponder recovery efforts have been unsuccessful. For more information on SedSat-1 visit the satellite web site:
-http://seds.uah.edu/projects/sedsat/sedsat.htm

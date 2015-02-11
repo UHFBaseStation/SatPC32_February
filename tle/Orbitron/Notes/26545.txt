@@ -1,9 +1,0 @@
-NAME: SO-41/SAUDISAT-1A
-LAUNCHED: 2000/09/26
-SITE: Baikonur Cosmodrome, Russia
-STATUS: Operational but intermittent.
-DNLINK: 436.775 FM
-UPLINK: 145.850 FM
-CALLSIGN: SASAT1-11 (Braodcast)
-CALLSIGN: SASAT1-12 (BBS)
-NOTES: The spacecraft is operating in Mode-J, currently configured as an analog FM voice repeater, as power and spacecraft experiments permit.
